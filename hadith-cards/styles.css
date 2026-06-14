@@ -1,18 +1,18 @@
 @font-face {
   font-family: "Local Scheherazade";
-  src: local("Scheherazade New"), url("../assets/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
+  src: local("Scheherazade New"), url("/assets/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
 @font-face {
   font-family: "Local Cormorant";
-  src: local("Cormorant Garamond"), url("../assets/fonts/CormorantGaramond-Regular.ttf") format("truetype");
+  src: local("Cormorant Garamond"), url("/assets/fonts/CormorantGaramond-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
 @font-face {
   font-family: "Local Cormorant";
-  src: local("Cormorant Garamond Italic"), url("../assets/fonts/CormorantGaramond-Italic.ttf") format("truetype");
+  src: local("Cormorant Garamond Italic"), url("/assets/fonts/CormorantGaramond-Italic.ttf") format("truetype");
   font-style: italic;
   font-display: swap;
 }
@@ -126,12 +126,12 @@ body {
   min-height: 0;
   padding: 0.11in 0.22in 0.08in;
   overflow: hidden;
-  border: 0.72pt solid rgba(var(--accent-rgb), 0.7);
+  border: 0.72pt solid color-mix(in srgb, var(--accent) 68%, transparent);
   border-radius: 0.105in;
   background:
-    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.98), transparent 38%),
-    radial-gradient(circle at 88% 80%, rgba(var(--accent-rgb), 0.11), transparent 45%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(var(--shade-rgb), 0.72)),
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.92), transparent 38%),
+    radial-gradient(circle at 88% 80%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 45%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), color-mix(in srgb, var(--card-bg) 88%, white)),
     var(--card-bg);
   box-shadow:
     inset 0 0 0 0.7pt rgba(255, 255, 255, 0.78),
@@ -143,12 +143,140 @@ body {
   content: "";
   position: absolute;
   inset: 0.045in;
-  border: 0.45pt solid rgba(var(--accent-rgb), 0.22);
+  border: 0.45pt solid color-mix(in srgb, var(--accent) 24%, transparent);
   border-radius: 0.075in;
   pointer-events: none;
 }
 
+.card-art {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--accent);
+}
+
+.card-art__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.92;
+}
+
+.card-art--tl,
+.card-art--tl-large {
+  top: 0.05in;
+  left: 0.05in;
+  width: 0.38in;
+  height: 0.28in;
+}
+
+.card-art--tl-large {
+  width: 0.46in;
+  height: 0.38in;
+}
+
+.card-art--tr,
+.card-art--tr-tall,
+.card-art--tr-geo {
+  top: 0.05in;
+  right: 0.05in;
+  width: 0.38in;
+  height: 0.28in;
+}
+
+.card-art--tr {
+  transform: scaleX(-1);
+}
+
+.card-art--tr-tall {
+  width: 0.18in;
+  height: 0.5in;
+  transform: none;
+}
+
+.card-art--tr-geo {
+  width: 0.34in;
+  height: 0.34in;
+  transform: none;
+}
+
+.card-art--bl {
+  bottom: 0.1in;
+  left: 0.05in;
+  width: 0.38in;
+  height: 0.28in;
+  transform: scaleY(-1);
+}
+
+.card-art--br {
+  right: 0.05in;
+  bottom: 0.1in;
+  width: 0.38in;
+  height: 0.28in;
+  transform: scale(-1);
+}
+
+.card-art--top,
+.card-art--bottom {
+  left: 50%;
+  width: 0.56in;
+  height: 0.12in;
+  transform: translateX(-50%);
+}
+
+.card-art--top {
+  top: 0.055in;
+}
+
+.card-art--bottom {
+  bottom: 0.16in;
+  transform: translateX(-50%) scaleY(-1);
+}
+
+.frame-corner {
+  position: absolute;
+  z-index: 1;
+  width: 0.22in;
+  height: 0.22in;
+  pointer-events: none;
+  border-color: color-mix(in srgb, var(--accent) 62%, transparent);
+}
+
+.frame-corner--top-left {
+  top: 0.045in;
+  left: 0.045in;
+  border-top: 0.75pt solid;
+  border-left: 0.75pt solid;
+  border-top-left-radius: 0.065in;
+}
+
+.frame-corner--top-right {
+  top: 0.045in;
+  right: 0.045in;
+  border-top: 0.75pt solid;
+  border-right: 0.75pt solid;
+  border-top-right-radius: 0.065in;
+}
+
+.frame-corner--bottom-left {
+  bottom: 0.045in;
+  left: 0.045in;
+  border-bottom: 0.75pt solid;
+  border-left: 0.75pt solid;
+  border-bottom-left-radius: 0.065in;
+}
+
+.frame-corner--bottom-right {
+  right: 0.045in;
+  bottom: 0.045in;
+  border-right: 0.75pt solid;
+  border-bottom: 0.75pt solid;
+  border-bottom-right-radius: 0.065in;
+}
+
 .card-copy {
+  position: relative;
+  z-index: 2;
   align-self: center;
   display: grid;
   gap: 0.035in;
@@ -189,6 +317,8 @@ body {
 }
 
 .source {
+  position: relative;
+  z-index: 2;
   align-self: end;
   color: #25231d;
   font-size: 0.088in;
@@ -213,7 +343,7 @@ body {
   position: absolute;
   top: 50%;
   width: 0.42in;
-  border-top: 0.65pt solid rgba(var(--accent-rgb), 0.68);
+  border-top: 0.65pt solid color-mix(in srgb, var(--accent) 68%, transparent);
 }
 
 .divider::before {
@@ -226,53 +356,12 @@ body {
 
 .divider {
   background:
-    radial-gradient(circle, rgba(var(--accent-rgb), 0.95) 0 24%, transparent 25%),
-    linear-gradient(45deg, transparent 39%, rgba(var(--accent-rgb), 0.72) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat,
-    linear-gradient(-45deg, transparent 39%, rgba(var(--accent-rgb), 0.72) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat;
+    radial-gradient(circle, color-mix(in srgb, var(--accent) 95%, transparent) 0 24%, transparent 25%),
+    linear-gradient(45deg, transparent 39%, color-mix(in srgb, var(--accent) 72%, transparent) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat,
+    linear-gradient(-45deg, transparent 39%, color-mix(in srgb, var(--accent) 72%, transparent) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat;
   background-position: center;
   background-size: 0.022in 0.022in, 0.065in 0.065in, 0.065in 0.065in;
   background-repeat: no-repeat;
-}
-
-.frame-corner {
-  position: absolute;
-  z-index: 1;
-  width: 0.22in;
-  height: 0.22in;
-  color: rgba(var(--accent-rgb), 0.62);
-  pointer-events: none;
-}
-
-.frame-corner--top-left {
-  top: 0.045in;
-  left: 0.045in;
-  border-top: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-left: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-top-left-radius: 0.065in;
-}
-
-.frame-corner--top-right {
-  top: 0.045in;
-  right: 0.045in;
-  border-top: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-right: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-top-right-radius: 0.065in;
-}
-
-.frame-corner--bottom-left {
-  bottom: 0.045in;
-  left: 0.045in;
-  border-bottom: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-left: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-bottom-left-radius: 0.065in;
-}
-
-.frame-corner--bottom-right {
-  right: 0.045in;
-  bottom: 0.045in;
-  border-right: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-bottom: 0.75pt solid rgba(var(--accent-rgb), 0.62);
-  border-bottom-right-radius: 0.065in;
 }
 
 .long .arabic {
