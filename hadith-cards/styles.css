@@ -1,0 +1,418 @@
+@font-face {
+  font-family: "Local Scheherazade";
+  src: local("Scheherazade New"), url("../assets/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Local Cormorant";
+  src: local("Cormorant Garamond"), url("../assets/fonts/CormorantGaramond-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Local Cormorant";
+  src: local("Cormorant Garamond Italic"), url("../assets/fonts/CormorantGaramond-Italic.ttf") format("truetype");
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --page-width: 8.5in;
+  --page-height: 11in;
+  --page-pad-x: 0.28in;
+  --page-pad-y: 0.2in;
+  --card-gap: 0.075in;
+  --label-height: 0.18in;
+  --ink: #171710;
+  --muted: #2b2b24;
+  --guide: rgba(103, 98, 83, 0.34);
+  --paper: #fffefa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #eeeeea;
+  color: var(--ink);
+  font-family: "Local Cormorant", Georgia, "Times New Roman", serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.print-stack {
+  display: grid;
+  gap: 0.35in;
+  padding: 0.35in 0;
+}
+
+.sheet {
+  display: grid;
+  grid-template-rows: var(--label-height) minmax(0, 1fr);
+  gap: 0.045in;
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0 auto;
+  padding: var(--page-pad-y) var(--page-pad-x) 0.28in;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 0.06in 0.24in rgba(45, 40, 30, 0.14);
+  page-break-after: always;
+  break-after: page;
+}
+
+.sheet:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+.page-label {
+  align-self: center;
+  margin: 0;
+  color: #211f19;
+  font-size: 0.105in;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: var(--card-gap);
+  width: 100%;
+  height: 100%;
+}
+
+.cut-guide {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cut-guide--vertical {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 0.45pt dashed var(--guide);
+}
+
+.cut-guide--horizontal {
+  left: 0;
+  right: 0;
+  border-top: 0.45pt dashed var(--guide);
+}
+
+.card {
+  --card-bg: #fff9ef;
+  --accent: #d7a754;
+  --accent-rgb: 215, 167, 84;
+  --shade-rgb: 255, 248, 232;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.11in 0.22in 0.08in;
+  overflow: hidden;
+  border: 0.72pt solid rgba(var(--accent-rgb), 0.7);
+  border-radius: 0.105in;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.98), transparent 38%),
+    radial-gradient(circle at 88% 80%, rgba(var(--accent-rgb), 0.11), transparent 45%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(var(--shade-rgb), 0.72)),
+    var(--card-bg);
+  box-shadow:
+    inset 0 0 0 0.7pt rgba(255, 255, 255, 0.78),
+    0 0.01in 0.03in rgba(47, 38, 27, 0.08);
+  break-inside: avoid;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0.045in;
+  border: 0.45pt solid rgba(var(--accent-rgb), 0.22);
+  border-radius: 0.075in;
+  pointer-events: none;
+}
+
+.card-copy {
+  align-self: center;
+  display: grid;
+  gap: 0.035in;
+  justify-items: center;
+  width: 100%;
+  padding: 0.02in 0.03in 0;
+}
+
+.arabic,
+.english,
+.source {
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.arabic {
+  width: 100%;
+  color: #11120e;
+  font-family: "Local Scheherazade", "Scheherazade New", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
+  font-size: 0.248in;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-wrap: balance;
+}
+
+.english {
+  max-width: 88%;
+  color: var(--muted);
+  font-size: 0.115in;
+  font-weight: 700;
+  line-height: 1.18;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.source {
+  align-self: end;
+  color: #25231d;
+  font-size: 0.088in;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.divider {
+  position: relative;
+  display: block;
+  width: 1.05in;
+  height: 0.06in;
+  margin: 0.005in 0 0.012in;
+  z-index: 2;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0.42in;
+  border-top: 0.65pt solid rgba(var(--accent-rgb), 0.68);
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.divider {
+  background:
+    radial-gradient(circle, rgba(var(--accent-rgb), 0.95) 0 24%, transparent 25%),
+    linear-gradient(45deg, transparent 39%, rgba(var(--accent-rgb), 0.72) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat,
+    linear-gradient(-45deg, transparent 39%, rgba(var(--accent-rgb), 0.72) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat;
+  background-position: center;
+  background-size: 0.022in 0.022in, 0.065in 0.065in, 0.065in 0.065in;
+  background-repeat: no-repeat;
+}
+
+.frame-corner {
+  position: absolute;
+  z-index: 1;
+  width: 0.22in;
+  height: 0.22in;
+  color: rgba(var(--accent-rgb), 0.62);
+  pointer-events: none;
+}
+
+.frame-corner--top-left {
+  top: 0.045in;
+  left: 0.045in;
+  border-top: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-left: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-top-left-radius: 0.065in;
+}
+
+.frame-corner--top-right {
+  top: 0.045in;
+  right: 0.045in;
+  border-top: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-right: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-top-right-radius: 0.065in;
+}
+
+.frame-corner--bottom-left {
+  bottom: 0.045in;
+  left: 0.045in;
+  border-bottom: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-left: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-bottom-left-radius: 0.065in;
+}
+
+.frame-corner--bottom-right {
+  right: 0.045in;
+  bottom: 0.045in;
+  border-right: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-bottom: 0.75pt solid rgba(var(--accent-rgb), 0.62);
+  border-bottom-right-radius: 0.065in;
+}
+
+.long .arabic {
+  font-size: 0.19in;
+  line-height: 1.14;
+}
+
+.long .english {
+  font-size: 0.101in;
+}
+
+.long .divider {
+  margin-bottom: 0.004in;
+}
+
+.very-long {
+  padding-inline: 0.18in;
+}
+
+.very-long .arabic {
+  font-size: 0.142in;
+  line-height: 1.08;
+}
+
+.very-long .english {
+  max-width: 92%;
+  font-size: 0.086in;
+  line-height: 1.1;
+}
+
+.very-long .source {
+  font-size: 0.074in;
+}
+
+.very-long .divider {
+  width: 0.78in;
+  height: 0.04in;
+  margin-bottom: 0;
+}
+
+.very-long .divider::before,
+.very-long .divider::after {
+  width: 0.3in;
+}
+
+.theme-1 {
+  --card-bg: #fff8eb;
+  --accent: #d7a754;
+  --accent-rgb: 215, 167, 84;
+  --shade-rgb: 255, 246, 225;
+}
+
+.theme-2 {
+  --card-bg: #fbfdf1;
+  --accent: #9caf6c;
+  --accent-rgb: 156, 175, 108;
+  --shade-rgb: 245, 250, 231;
+}
+
+.theme-3 {
+  --card-bg: #fff5f2;
+  --accent: #e79586;
+  --accent-rgb: 231, 149, 134;
+  --shade-rgb: 255, 238, 234;
+}
+
+.theme-4 {
+  --card-bg: #f2f9fd;
+  --accent: #79a9c7;
+  --accent-rgb: 121, 169, 199;
+  --shade-rgb: 232, 246, 253;
+}
+
+.theme-5 {
+  --card-bg: #fff9ea;
+  --accent: #dfa33a;
+  --accent-rgb: 223, 163, 58;
+  --shade-rgb: 255, 246, 219;
+}
+
+.theme-6 {
+  --card-bg: #f9f5fc;
+  --accent: #a58bc0;
+  --accent-rgb: 165, 139, 192;
+  --shade-rgb: 246, 238, 251;
+}
+
+.theme-7 {
+  --card-bg: #effaf6;
+  --accent: #6ea79e;
+  --accent-rgb: 110, 167, 158;
+  --shade-rgb: 230, 249, 244;
+}
+
+.theme-8 {
+  --card-bg: #fff4ed;
+  --accent: #dc8c61;
+  --accent-rgb: 220, 140, 97;
+  --shade-rgb: 255, 238, 227;
+}
+
+.theme-9 {
+  --card-bg: #f4f9ff;
+  --accent: #78a5d3;
+  --accent-rgb: 120, 165, 211;
+  --shade-rgb: 234, 245, 255;
+}
+
+.theme-10 {
+  --card-bg: #fcf8ef;
+  --accent: #bda96f;
+  --accent-rgb: 189, 169, 111;
+  --shade-rgb: 248, 242, 225;
+}
+
+@page {
+  size: 8.5in 11in;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    background: white;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-stack {
+    display: block;
+    padding: 0;
+  }
+
+  .sheet {
+    margin: 0;
+    box-shadow: none;
+  }
+}

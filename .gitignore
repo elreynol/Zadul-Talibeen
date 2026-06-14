@@ -1,0 +1,9 @@
+.pydeps/
+__pycache__/
+*.pyc
+.DS_Store
+*.pdf.png
+
+# Optional local pip install target
+.venv/
+venv/

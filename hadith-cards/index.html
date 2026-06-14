@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hadith Cards</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="pages" class="print-stack" aria-label="Printable hadith cards"></main>
+
+    <script src="hadiths.js"></script>
+    <script>
+      const cardsPerPage = 10;
+      const totalPages = 6;
+      const themes = 10;
+      const pagesRoot = document.getElementById("pages");
+
+      function escapeHTML(value) {
+        return String(value || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function lengthClass(hadith) {
+        const totalLength = `${hadith.arabic || ""} ${hadith.english || ""}`.length;
+        if (totalLength > 260) return "very-long";
+        if (totalLength > 170) return "long";
+        return "";
+      }
+
+      function cutGuides() {
+        return `
+          <span class="cut-guide cut-guide--vertical" aria-hidden="true"></span>
+          <span class="cut-guide cut-guide--horizontal" style="top: calc(20% - 0.0255in)" aria-hidden="true"></span>
+          <span class="cut-guide cut-guide--horizontal" style="top: calc(40% - 0.0085in)" aria-hidden="true"></span>
+          <span class="cut-guide cut-guide--horizontal" style="top: calc(60% + 0.0085in)" aria-hidden="true"></span>
+          <span class="cut-guide cut-guide--horizontal" style="top: calc(80% + 0.0255in)" aria-hidden="true"></span>
+        `;
+      }
+
+      function cardTemplate(hadith, index) {
+        const theme = (index % themes) + 1;
+        return `
+          <article class="card theme-${theme} ${lengthClass(hadith)}">
+            <span class="frame-corner frame-corner--top-left" aria-hidden="true"></span>
+            <span class="frame-corner frame-corner--top-right" aria-hidden="true"></span>
+            <span class="frame-corner frame-corner--bottom-left" aria-hidden="true"></span>
+            <span class="frame-corner frame-corner--bottom-right" aria-hidden="true"></span>
+            <div class="card-copy">
+              <p class="arabic" lang="ar" dir="rtl">${escapeHTML(hadith.arabic)}</p>
+              <span class="divider" aria-hidden="true"></span>
+              <p class="english">${escapeHTML(hadith.english)}</p>
+            </div>
+            <p class="source">${escapeHTML(hadith.source)}</p>
+          </article>
+        `;
+      }
+
+      function render() {
+        const paddedHadiths = [...hadiths];
+        while (paddedHadiths.length < cardsPerPage * totalPages) {
+          paddedHadiths.push({
+            arabic: "نَصُّ الْحَدِيثِ الْعَرَبِيُّ هُنَا",
+            english: "English translation placeholder goes here.",
+            source: "Source placeholder"
+          });
+        }
+
+        pagesRoot.innerHTML = Array.from({ length: totalPages }, (_, pageIndex) => {
+          const start = pageIndex * cardsPerPage;
+          const pageHadiths = paddedHadiths.slice(start, start + cardsPerPage);
+          return `
+            <section class="sheet" aria-label="Page ${pageIndex + 1} of ${totalPages}">
+              <p class="page-label">Page ${pageIndex + 1} of ${totalPages}</p>
+              <div class="cards">
+                ${cutGuides()}
+                ${pageHadiths.map((hadith, index) => cardTemplate(hadith, start + index)).join("")}
+              </div>
+            </section>
+          `;
+        }).join("");
+      }
+
+      render();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>Hadith Cards — Zad al-Talibin (1–60)</title>
+<style>
+@font-face { font-family: Scheherazade; src: url("file:///Users/Elijah/Desktop/Hadith%20projects/assets/fonts/ScheherazadeNew-Regular.ttf"); }
+@font-face { font-family: Cormorant; src: url("file:///Users/Elijah/Desktop/Hadith%20projects/assets/fonts/CormorantGaramond-Regular.ttf"); }
+@font-face { font-family: Cormorant; src: url("file:///Users/Elijah/Desktop/Hadith%20projects/assets/fonts/CormorantGaramond-Italic.ttf"); font-style: italic; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+@page { size: A4 portrait; margin: 5mm; }
+html, body { margin: 0; }
+body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+.page {
+  width: 200mm;
+  height: 287mm;
+  display: grid;
+  grid-template-columns: 99mm 99mm;
+  grid-template-rows: repeat(4, 70.25mm);
+  gap: 2mm;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+
+.card {
+  position: relative;
+  width: 99mm;
+  height: 70.25mm;
+  border-radius: 3.2mm;
+  overflow: hidden;
+  outline: 0.25pt dashed #bdbdbd;
+  outline-offset: -0.25pt;
+}
+.card--empty { visibility: hidden; outline: none; background: none !important; }
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.copy {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5mm;
+  z-index: 1;
+}
+
+.arabic {
+  font-family: Scheherazade, "Traditional Arabic", serif;
+  direction: rtl;
+  color: #111;
+  line-height: 1.14;
+  width: 100%;
+}
+
+.english {
+  font-family: Cormorant, Georgia, serif;
+  color: #1a1a1a;
+  line-height: 1.08;
+  width: 100%;
+}
+
+.source {
+  font-family: Cormorant, Georgia, serif;
+  font-style: italic;
+  font-size: 5.5pt;
+  color: #3a3a3a;
+  width: 100%;
+  margin-top: 0.6mm;
+  line-height: 1.05;
+}
+</style>
+</head>
+<body>
+<section class="page">
+    <article class="card" style="background:#fdf8ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/cream.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:15.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الدِّينُ النَّصِيحَةُ</p>
+        <p class="english" style="font-size:8.6pt">The religion is to act with sincerity.</p>
+        <p class="source">Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f7f7f0">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/mint.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الدُّعَاءُ مُخُّ الْعِبَادَةِ</p>
+        <p class="english" style="font-size:8.6pt">Supplication is the essence of worship.</p>
+        <p class="source">Sahih al-Bukhari</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/blush.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْمَرْءُ مَعَ مَنْ أَحَبَّ</p>
+        <p class="english" style="font-size:8.6pt">A person will be with whom he loves.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f2f5f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/sky.png" alt="">
+      <div class="copy" style="top:18.0%;bottom:10.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الأَنَاةُ مِنَ اللَّهِ وَالْعَجَلَةُ مِنَ الشَّيْطَانِ</p>
+        <p class="english" style="font-size:8.6pt">Calmness and patient deliberation is from Allah and haste is from Satan.</p>
+        <p class="source">Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fef7ea">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/wheat.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:9.5%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْمَجَالِسُ بِالْأَمَانَةِ</p>
+        <p class="english" style="font-size:8.6pt">Gatherings are to be kept in confidence.</p>
+        <p class="source">Sunan Abi Dawud</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f3eef4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/lavender.png" alt="">
+      <div class="copy" style="top:18.8%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْحَيَاءُ شُعْبَةٌ مِنَ الْإِيمَانِ</p>
+        <p class="english" style="font-size:8.6pt">Modesty is a branch of faith.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f1f6f4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/teal.png" alt="">
+      <div class="copy" style="top:23.8%;bottom:18.9%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْخَمْرُ جَامِعَةُ الْإِثْمِ</p>
+        <p class="english" style="font-size:8.6pt">Alcohol constitutes many sins.</p>
+        <p class="source">Razin</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ec">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/peach.png" alt="">
+      <div class="copy" style="top:13.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الْمُؤْمِنُ غَرِيٌّ كَرِيمٌ وَالْفَاجِرُ خَبٌّ لَئِيمٌ</p>
+        <p class="english" style="font-size:8.6pt">A believer is simple and noble and a transgressor is deceitful and ignoble.</p>
+        <p class="source">Sunan Abi Dawud &amp; Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#eef4f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/slate.png" alt="">
+      <div class="copy" style="top:10.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الظُّلْمُ ظُلُمَاتٌ يَوْمَ الْقِيَامَةِ</p>
+        <p class="english" style="font-size:8.6pt">Oppression will be darknesses on the Day of Judgment.</p>
+        <p class="source">Sahih al-Bukhari</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fefbf8">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/master.png" alt="">
+      <div class="copy" style="top:24.1%;bottom:18.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ</p>
+        <p class="english" style="font-size:8.6pt">The world is a prison for the believer and a paradise for the unbeliever.</p>
+        <p class="source">Sahih Muslim &amp; Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f7f7f0">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/mint.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى</p>
+        <p class="english" style="font-size:8.6pt">The upper [giving] hand is superior to the lower [taking] hand.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/blush.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الطُّهُورُ شَطْرُ الْإِيمَانِ</p>
+        <p class="english" style="font-size:8.6pt">Purity is half of faith.</p>
+        <p class="source">Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f2f5f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/sky.png" alt="">
+      <div class="copy" style="top:18.0%;bottom:10.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْجَرَسُ مَزَامِيرُ الشَّيْطَانِ</p>
+        <p class="english" style="font-size:8.6pt">Bells are the flutes of Satan.</p>
+        <p class="source">Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fef7ea">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/wheat.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:9.5%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الْآكِلُ الشَّاكِرُ كَالصَّائِمِ الصَّابِرِ</p>
+        <p class="english" style="font-size:8.6pt">The one who eats and is thankful is like the one who fasts and is patient.</p>
+        <p class="source">Jamiʿ al-Tirmidhi &amp; Sunan al-Darimi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f3eef4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/lavender.png" alt="">
+      <div class="copy" style="top:18.8%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الْبَادِئُ بِالسَّلَامِ بَرِيءٌ مِنَ الْكِبْرِ</p>
+        <p class="english" style="font-size:8.6pt">The one who initiates the salām is free of pride.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f1f6f4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/teal.png" alt="">
+      <div class="copy" style="top:23.8%;bottom:18.9%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">السِّوَاكُ مَطْهَرَةٌ لِلْفَمِ مَرْضَاةٌ لِلرَّبِّ</p>
+        <p class="english" style="font-size:8.6pt">The tooth-stick purifies the mouth and pleases the Lord.</p>
+        <p class="source">Sahih al-Bukhari (ta&#x27;liqan), Sunan al-Nasa&#x27;i &amp; Sunan al-Darimi</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#fdf3ec">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/peach.png" alt="">
+      <div class="copy" style="top:13.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْغِيبَةُ أَشَدُّ مِنَ الزِّنَا</p>
+        <p class="english" style="font-size:8.6pt">Backbiting is worse than unlawful intercourse.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#eef4f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/slate.png" alt="">
+      <div class="copy" style="top:10.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ</p>
+        <p class="english" style="font-size:8.6pt">The Qur&#x27;an will either be evidence for you or against you.</p>
+        <p class="source">Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf8ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/cream.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:15.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">النِّسَاءُ حِبَالُ الشَّيْطَانِ</p>
+        <p class="english" style="font-size:8.6pt">Women are the snares of Satan.</p>
+        <p class="source">Razin</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fefbf8">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/master.png" alt="">
+      <div class="copy" style="top:24.1%;bottom:18.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">التَّائِبُ مِنَ الذَّنْبِ كَمَنْ لَا ذَنْبَ لَهُ</p>
+        <p class="english" style="font-size:8.6pt">One who repents from sin is like one who has no sin.</p>
+        <p class="source">Sunan Ibn Majah, al-Tabarani &amp; al-Mu&#x27;jam al-Kabir</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/blush.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">الْقَصْدُ فِي النَّفَقَةِ نِصْفُ الْمَعِيشَةِ، وَالتَّوَدُّدُ إِلَى النَّاسِ نِصْفُ الْعَقْلِ، وَحُسْنُ السُّؤَالِ نِصْفُ الْعِلْمِ</p>
+        <p class="english" style="font-size:7.4pt">Moderation in spending is half of [one&#x27;s] sustenance, friendliness toward people is half of [one&#x27;s] intelligence, and asking good questions is half of [one&#x27;s] knowledge.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f2f5f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/sky.png" alt="">
+      <div class="copy" style="top:18.0%;bottom:10.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">الْكَيِّسُ مَنْ دَانَ نَفْسَهُ وَعَمِلَ لِمَا بَعْدَ الْمَوْتِ، وَالْعَاجِزُ مَنْ أَتْبَعَ نَفْسَهُ هَوَاهَا وَتَمَنَّى عَلَى اللَّهِ</p>
+        <p class="english" style="font-size:6.8pt">The intelligent one is he who has subdued his lower self and who has worked for what comes after death, and the stupid one is he who has put his lower self in pursuance of its desires and who has vain hopes about Allah.</p>
+        <p class="source">Jamiʿ al-Tirmidhi &amp; Sunan Ibn Majah</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fef7ea">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/wheat.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:9.5%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">الْمُؤْمِنُ مُؤَالِفٌ وَلَا خَيْرَ فِيمَنْ لَا يُؤْلَفُ وَلَا يُؤَالِفُ</p>
+        <p class="english" style="font-size:7.4pt">The believer is one who is sociable [with others], and there is no good in one who is not sociable [with others] nor in one who is not met sociably [by them].</p>
+        <p class="source">al-Mustadrak, al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f3eef4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/lavender.png" alt="">
+      <div class="copy" style="top:18.8%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">الْغِنَاءُ يَنْبُتُ النِّفَاقَ فِي الْقَلْبِ كَمَا يَنْبُتُ الْمَاءُ الزَّرْعَ</p>
+        <p class="english" style="font-size:8.6pt">Songs make hypocrisy grow in the heart just as water makes crops grow.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#f1f6f4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/teal.png" alt="">
+      <div class="copy" style="top:23.8%;bottom:18.9%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">التُّجَّارُ يُحْشَرُونَ يَوْمَ الْقِيَامَةِ فُجَّارًا إِلَّا مَنْ اتَّقَى اللَّهَ وَبَرَّ وَصَدَقَ</p>
+        <p class="english" style="font-size:7.4pt">Traders will be gathered on the Day of Judgment as transgressors, except those who feared Allah, were righteous [in their oaths], and spoke the truth.</p>
+        <p class="source">Jamiʿ al-Tirmidhi, Sunan Ibn Majah &amp; Sunan al-Darimi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ec">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/peach.png" alt="">
+      <div class="copy" style="top:13.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">التَّاجِرُ الصَّدُوقُ الْأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ</p>
+        <p class="english" style="font-size:8pt">A truthful and trustworthy trader will be in the company of the prophets, the very truthful, and the martyrs.</p>
+        <p class="source">Jamiʿ al-Tirmidhi, Sunan al-Darimi &amp; al-Daraqutni</p>
+      </div>
+    </article>
+    <article class="card" style="background:#eef4f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/slate.png" alt="">
+      <div class="copy" style="top:10.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">آيَةُ الْمُنَافِقِ ثَلَاثٌ: إِذَا حَدَّثَ كَذَبَ، وَإِذَا وَعَدَ أَخْلَفَ، وَإِذَا اُؤْتُمِنَ خَانَ</p>
+        <p class="english" style="font-size:7.4pt">The signs of a hypocrite are three: when he speaks he lies, when he makes a promise he breaks it, and when he is trusted he betrays the trust.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf8ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/cream.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:15.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">الْكَبَائِرُ: الْإِشْرَاكُ بِاللَّهِ، وَعُقُوقُ الْوَالِدَيْنِ، وَقَتْلُ النَّفْسِ، وَالْيَمِينُ الْغَمُوسُ</p>
+        <p class="english" style="font-size:7.4pt">The major sins are worshipping others besides Allah, disobeying parents, killing a human being [unlawfully], and the immersing oath.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f7f7f0">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/mint.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">الْبِرُّ حُسْنُ الْخُلُقِ، وَالْإِثْمُ مَا حَاكَ فِي صَدْرِكَ، وَكَرِهْتَ أَنْ يَطَّلِعَ عَلَيْهِ النَّاسُ</p>
+        <p class="english" style="font-size:7.4pt">Righteousness is good character, and sin is what causes uneasiness in your heart and what you dislike others to become aware of.</p>
+        <p class="source">Sahih Muslim &amp; Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fefbf8">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/master.png" alt="">
+      <div class="copy" style="top:24.1%;bottom:18.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">الْخَلْقُ عِيَالُ اللَّهِ فَأَحَبُّ الْخَلْقِ إِلَى اللَّهِ مَنْ أَحْسَنَ إِلَى عِيَالِهِ</p>
+        <p class="english" style="font-size:7.4pt">All created beings are Allah&#x27;s dependants, and the most beloved of creation to Allah is the one who is good to His dependants.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f2f5f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/sky.png" alt="">
+      <div class="copy" style="top:18.0%;bottom:10.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ</p>
+        <p class="english" style="font-size:8.6pt">A [true] Muslim is he from whose tongue and hand other believers remain safe.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fef7ea">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/wheat.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:9.5%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">وَالْمُؤْمِنُ مَنْ أَمِنَهُ النَّاسُ عَلَى دِمَائِهِمْ وَأَمْوَالِهِمْ</p>
+        <p class="english" style="font-size:8.6pt">And a [true] believer is he whom people trust with their lives and possessions.</p>
+        <p class="source">Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#f3eef4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/lavender.png" alt="">
+      <div class="copy" style="top:18.8%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">وَالْمُجَاهِدُ مَنْ جَاهَدَ نَفْسَهُ فِي طَاعَةِ اللَّهِ</p>
+        <p class="english" style="font-size:8.6pt">And a [true] warrior is one who exerts himself in obedience to Allah.</p>
+        <p class="source">Musnad Ahmad, al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f1f6f4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/teal.png" alt="">
+      <div class="copy" style="top:23.8%;bottom:18.9%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">وَالْمُهَاجِرُ مَنْ هَجَرَ الْخَطَايَا وَالذُّنُوبَ</p>
+        <p class="english" style="font-size:8.6pt">And a [true] emigrant is he who abandons all wrongs and sins.</p>
+        <p class="source">Musnad Ahmad, al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ec">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/peach.png" alt="">
+      <div class="copy" style="top:13.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">الْبَيِّنَةُ عَلَى الْمُدَّعِي وَالْيَمِينُ عَلَى الْمُدَّعَى عَلَيْهِ</p>
+        <p class="english" style="font-size:8pt">The burden of proof is on the accuser and swearing the oath is on the one accused.</p>
+        <p class="source">al-Bayhaqi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#eef4f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/slate.png" alt="">
+      <div class="copy" style="top:10.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">الْمُؤْمِنُ مِرْآةُ الْمُؤْمِنِ، وَالْمُؤْمِنُ أَخُو الْمُؤْمِنِ، يُكَفِّلُهُ وَيُحَاطُ بِضَيْعَتِهِ وَيَحْمِيهِ مِنْ وَرَائِهِ</p>
+        <p class="english" style="font-size:7.4pt">A believer is a mirror for a believer, and a believer is the brother of a believer; he safeguards him from destruction and protects him in his absence.</p>
+        <p class="source">Sunan Abi Dawud, Jamiʿ al-Tirmidhi, Sahih al-Bukhari &amp; al-Adab al-Mufrad</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf8ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/cream.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:15.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">الْمُؤْمِنُونَ كَرَجُلٍ وَاحِدٍ، إِنِ اشْتَكَى عَيْنُهُ اشْتَكَى كُلُّهُ، وَإِنِ اشْتَكَى رَأْسُهُ اشْتَكَى كُلُّهُ</p>
+        <p class="english" style="font-size:7.4pt">Believers are like a single person; if his eye is in pain his whole body pains, and if his head is in pain his whole body pains.</p>
+        <p class="source">Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f7f7f0">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/mint.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">السَّفَرُ قِطْعَةٌ مِنَ الْعَذَابِ، يَمْنَعُ أَحَدَكُمْ نَوَمَهُ وَطَعَامَهُ وَشَرَابَهُ، فَإِذَا قَضَى أَحَدُكُمْ نِيَّتَهُ مِنْ وَجْهِهِ فَلْيُعَجِّلْ إِلَى أَهْلِهِ</p>
+        <p class="english" style="font-size:6.8pt">Travelling involves a degree of punishment; it deprives one of his sleep, food, and drink. Therefore, when one has accomplished his purpose at his destination, he should hurry back to his family.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/blush.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">الْقَافِلَةُ كَغَزْوَةٍ</p>
+        <p class="english" style="font-size:8.6pt">The return from battle is like the battle itself [in reward].</p>
+        <p class="source">Sunan Abi Dawud</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fefbf8">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/master.png" alt="">
+      <div class="copy" style="top:24.1%;bottom:18.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">سَيِّدُ الْقَوْمِ فِي السَّفَرِ خَادِمُهُمْ</p>
+        <p class="english" style="font-size:8.6pt">On a journey, the leader of the group is their servant.</p>
+        <p class="source">Sunan Ibn Majah, al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#fef7ea">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/wheat.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:9.5%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ</p>
+        <p class="english" style="font-size:8.6pt">To seek sacred knowledge is an obligation on every Muslim.</p>
+        <p class="source">Sunan Ibn Majah</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f3eef4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/lavender.png" alt="">
+      <div class="copy" style="top:18.8%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">أَصْدَقُ الرُّؤْيَا بِالْأَسْحَارِ</p>
+        <p class="english" style="font-size:8.6pt">The most truthful dreams are [seen] just before dawn.</p>
+        <p class="source">Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f1f6f4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/teal.png" alt="">
+      <div class="copy" style="top:23.8%;bottom:18.9%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</p>
+        <p class="english" style="font-size:8.6pt">The best among you is he who learns the Qur&#x27;an and teaches it.</p>
+        <p class="source">Sahih al-Bukhari</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ec">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/peach.png" alt="">
+      <div class="copy" style="top:13.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">أَحَبُّ الْأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ</p>
+        <p class="english" style="font-size:8pt">The most beloved actions in the sight of Allah are the regular ones, even if they amount to little in quantity.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#eef4f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/slate.png" alt="">
+      <div class="copy" style="top:10.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">مَطْلُ الْغَنِيِّ ظُلْمٌ</p>
+        <p class="english" style="font-size:8.6pt">Delay in the repayment of debt by a wealthy person is a form of oppression.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf8ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/cream.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:15.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">حُبُّكَ الشَّيْءَ يُعْمِي وَيُصِمُّ</p>
+        <p class="english" style="font-size:8.6pt">Your love for something blinds and deafens.</p>
+        <p class="source">Sunan Abi Dawud &amp; Musnad Ahmad</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f7f7f0">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/mint.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">مَا قَلَّ وَكَفَى خَيْرٌ مِمَّا كَثُرَ وَأَلْهَى</p>
+        <p class="english" style="font-size:8pt">What is little but sufficient is better than that which is abundant but causes heedlessness.</p>
+        <p class="source">Ibn Hibban</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/blush.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">طَلَبُ الْكَسْبِ الْحَلَالِ فَرِيضَةٌ بَعْدَ الْفَرِيضَةِ</p>
+        <p class="english" style="font-size:8.6pt">To seek lawful earnings is an obligatory duty following other obligatory duties.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#f2f5f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/sky.png" alt="">
+      <div class="copy" style="top:18.0%;bottom:10.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:15.5pt">حُبُّ الدُّنْيَا رَأْسُ كُلِّ خَطِيئَةٍ</p>
+        <p class="english" style="font-size:8.6pt">Love of this world is the origin of all sin.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fefbf8">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/master.png" alt="">
+      <div class="copy" style="top:24.1%;bottom:18.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">أَفْضَلُ الصَّدَقَةِ أَنْ تُشْبِعَ كَبِدًا جَائِعًا</p>
+        <p class="english" style="font-size:8.6pt">The most virtuous charity is that you satisfy a hungry stomach.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f3eef4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/lavender.png" alt="">
+      <div class="copy" style="top:18.8%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">مَنْهُومَانِ لَا يَشْبَعَانِ: مَنْهُومٌ فِي الْعِلْمِ لَا يَشْبَعُ مِنْهُ، وَمَنْهُومٌ فِي الدُّنْيَا لَا يَشْبَعُ مِنْهَا</p>
+        <p class="english" style="font-size:6.8pt">Two greedy people are never satiated: one who is greedy for knowledge can never get enough of it, and one who is greedy for worldly possessions can never get enough of them.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f1f6f4">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/teal.png" alt="">
+      <div class="copy" style="top:23.8%;bottom:18.9%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">أَفْضَلُ الْجِهَادِ أَنْ تَقُولَ كَلِمَةَ حَقٍّ عِنْدَ سُلْطَانٍ جَائِرٍ</p>
+        <p class="english" style="font-size:8pt">The most virtuous jihād is when one speaks a word of truth before an unjust ruler.</p>
+        <p class="source">Sunan Abi Dawud, Jamiʿ al-Tirmidhi &amp; Sunan Ibn Majah</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf3ec">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/peach.png" alt="">
+      <div class="copy" style="top:13.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">غَدْوَةٌ أَوْ رَوْحَةٌ فِي سَبِيلِ اللَّهِ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا</p>
+        <p class="english" style="font-size:8pt">A morning or an evening spent in the path of Allah is more superior than the world and whatever it contains.</p>
+        <p class="source">Sahih al-Bukhari &amp; Sahih Muslim</p>
+      </div>
+    </article>
+    <article class="card" style="background:#eef4f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/slate.png" alt="">
+      <div class="copy" style="top:10.0%;bottom:13.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">فَقِيهٌ وَاحِدٌ أَشَدُّ عَلَى الشَّيْطَانِ مِنْ أَلْفِ عَابِدٍ</p>
+        <p class="english" style="font-size:8.6pt">A single jurist is more severe on Satan than a hundred worshippers.</p>
+        <p class="source">Jamiʿ al-Tirmidhi &amp; Sunan Ibn Majah</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fdf8ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/cream.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:15.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">طُوبَى لِمَنْ وَجَدَ فِي صَحِيفَتِهِ اسْتِغْفَارًا كَثِيرًا</p>
+        <p class="english" style="font-size:8pt">Glad tidings are for him who finds abundant invocations for forgiveness recorded in his book of deeds.</p>
+        <p class="source">Sunan Ibn Majah</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f7f7f0">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/mint.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">رِضَا اللَّهِ فِي رِضَا الْوَالِدِ، وَسَخَطُ اللَّهِ فِي سَخَطِ الْوَالِدِ</p>
+        <p class="english" style="font-size:7.4pt">The pleasure of Allah is in the pleasure of the father, and the displeasure of Allah is in the displeasure of the father.</p>
+        <p class="source">Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article></section><section class="page">
+    <article class="card" style="background:#fdf3ee">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/blush.png" alt="">
+      <div class="copy" style="top:32.0%;bottom:8.0%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:11.5pt">حَقُّ الْأَخِ الْكَبِيرِ عَلَى الصَّغِيرِ كَحَقِّ الْوَالِدِ عَلَى وَلَدِهِ</p>
+        <p class="english" style="font-size:8pt">The right of an elder brother over the younger ones is like the right of the father over his children.</p>
+        <p class="source">al-Bayhaqi &amp; Shuʿab al-Iman</p>
+      </div>
+    </article>
+    <article class="card" style="background:#f2f5f7">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/sky.png" alt="">
+      <div class="copy" style="top:18.0%;bottom:10.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">كُلُّ بَنِي آدَمَ خَطَّاءٌ، وَخَيْرُ الْخَطَّائِينَ التَّوَّابُونَ</p>
+        <p class="english" style="font-size:8pt">The children of Adam are all profuse wrongdoers, but the best of profuse wrongdoers are those who repent.</p>
+        <p class="source">Jamiʿ al-Tirmidhi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fef7ea">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/wheat.png" alt="">
+      <div class="copy" style="top:31.2%;bottom:9.5%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:10pt">كَمْ مِنْ صَائِمٍ لَيْسَ لَهُ مِنْ صِيَامِهِ إِلَّا الْجُوعُ، وَكَمْ مِنْ قَائِمٍ لَيْسَ لَهُ مِنْ قِيَامِهِ إِلَّا السَّهَرُ</p>
+        <p class="english" style="font-size:6.8pt">How many there are who fast but do not gain anything from it but hunger, and how many there are who pass the night standing in prayer but do not gain anything from it but sleeplessness.</p>
+        <p class="source">Sunan al-Darimi</p>
+      </div>
+    </article>
+    <article class="card" style="background:#fefbf8">
+      <img class="overlay" src="file:///Users/Elijah/Desktop/Hadith%20projects/assets/overlays/master.png" alt="">
+      <div class="copy" style="top:24.1%;bottom:18.4%;left:8.0%;right:8.0%">
+        <p class="arabic" style="font-size:13.5pt">مِنْ حُسْنِ إِسْلَامِ الْمَرْءِ تَرْكُهُ مَا لَا يَعْنِيهِ</p>
+        <p class="english" style="font-size:8pt">Of the excellence of one&#x27;s Islam is that he leaves that which does not concern him.</p>
+        <p class="source">Jamiʿ al-Tirmidhi &amp; Musnad Ahmad</p>
+      </div>
+    </article><article class="card card--empty"></article><article class="card card--empty"></article><article class="card card--empty"></article><article class="card card--empty"></article></section>
+</body>
+</html>
