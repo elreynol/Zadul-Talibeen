@@ -4,227 +4,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hadith Cards</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=15">
   </head>
   <body>
-    <main id="pages" class="print-stack" aria-label="Printable hadith cards"></main>
+    <main id="pages" class="print-stack" aria-label="Printable hadith cards">
+      <p class="load-message">Loading cards…</p>
+    </main>
 
-    <script src="hadiths.js"></script>
+    <script src="hadiths.js?v=14"></script>
     <script>
       const cardsPerPage = 10;
       const totalPages = 6;
       const themeAssets = [
-        { id: "cream", bg: "#fdf8ee", accent: "#c9a05a", decor: ["tl", "br"] },
-        { id: "mint", bg: "#f7f7f0", accent: "#8ea866", decor: ["top", "br"] },
-        { id: "blush", bg: "#fdf3ee", accent: "#d8897a", decor: ["tr", "bl"] },
-        { id: "sky", bg: "#f2f5f7", accent: "#6f9eb8", decor: ["tl", "br"] },
-        { id: "wheat", bg: "#fef7ea", accent: "#c9922f", decor: ["top", "bl"] },
-        { id: "lavender", bg: "#f3eef4", accent: "#9a7eb5", decor: ["tr-tall", "top"] },
-        { id: "teal", bg: "#f1f6f4", accent: "#5f9a8f", decor: ["tl-large", "br"] },
-        { id: "peach", bg: "#fdf3ec", accent: "#d07f55", decor: ["top", "br"] },
-        { id: "slate", bg: "#eef4f7", accent: "#6a9bc4", decor: ["tr-geo", "bl"] },
-        { id: "master", bg: "#fefbf8", accent: "#a89562", decor: ["tl", "tr", "bl", "br", "top", "bottom"] }
+        { id: "cream", bg: "#fdf8ee", accent: "#c9a05a" },
+        { id: "mint", bg: "#f7f7f0", accent: "#8ea866" },
+        { id: "blush", bg: "#fdf3ee", accent: "#d8897a" },
+        { id: "sky", bg: "#f2f5f7", accent: "#6f9eb8" },
+        { id: "wheat", bg: "#fef7ea", accent: "#c9922f" },
+        { id: "lavender", bg: "#f3eef4", accent: "#9a7eb5" },
+        { id: "teal", bg: "#f1f6f4", accent: "#5f9a8f" },
+        { id: "peach", bg: "#fdf3ec", accent: "#d07f55" },
+        { id: "slate", bg: "#eef4f7", accent: "#6a9bc4" },
+        { id: "master", bg: "#fefbf8", accent: "#a89562" }
       ];
       const pagesRoot = document.getElementById("pages");
 
       function pickTheme(index) {
         return index % 10 === 9 ? themeAssets[9] : themeAssets[index % 9];
-      }
-
-      let artUid = 0;
-
-      function hexToRgb(hex) {
-        const value = parseInt(hex.slice(1), 16);
-        return [(value >> 16) & 255, (value >> 8) & 255, value & 255];
-      }
-
-      function mixHex(hex, towardWhite, amount) {
-        const [r, g, b] = hexToRgb(hex);
-        const mix = (channel) => Math.round(channel + (towardWhite - channel) * amount);
-        const nr = mix(r);
-        const ng = mix(g);
-        const nb = mix(b);
-        return `#${nr.toString(16).padStart(2, "0")}${ng.toString(16).padStart(2, "0")}${nb.toString(16).padStart(2, "0")}`;
-      }
-
-      function svgPalette(color) {
-        return {
-          deep: color,
-          mid: mixHex(color, 255, 0.28),
-          light: mixHex(color, 255, 0.58),
-          wash: mixHex(color, 255, 0.78)
-        };
-      }
-
-      function svgDefs(uid, color) {
-        const palette = svgPalette(color);
-        return `
-          <defs>
-            <linearGradient id="leaf-${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="${palette.light}" stop-opacity="1"/>
-              <stop offset="45%" stop-color="${palette.mid}" stop-opacity="0.82"/>
-              <stop offset="100%" stop-color="${palette.deep}" stop-opacity="0.95"/>
-            </linearGradient>
-            <radialGradient id="wash-${uid}" cx="28%" cy="22%" r="78%">
-              <stop offset="0%" stop-color="${palette.wash}" stop-opacity="1"/>
-              <stop offset="55%" stop-color="${palette.mid}" stop-opacity="0.68"/>
-              <stop offset="100%" stop-color="${palette.deep}" stop-opacity="0.82"/>
-            </radialGradient>
-            <linearGradient id="stem-${uid}" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="${palette.deep}" stop-opacity="0.55"/>
-              <stop offset="100%" stop-color="${palette.deep}" stop-opacity="0.92"/>
-            </linearGradient>
-            <filter id="soft-${uid}" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="0.15" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-        `;
-      }
-
-      function leafGroup(uid, color, leaves) {
-        const palette = svgPalette(color);
-        return leaves.map((leaf, index) => {
-          const { x, y, w, h, angle, flip } = leaf;
-          const transform = `translate(${x} ${y}) rotate(${angle})${flip ? " scale(-1,1)" : ""}`;
-          return `
-            <g transform="${transform}" filter="url(#soft-${uid})">
-              <path d="M0 0 C${(w * 0.18).toFixed(1)} ${(-h * 0.06).toFixed(1)}, ${(w * 0.42).toFixed(1)} ${(-h * 0.28).toFixed(1)}, ${w.toFixed(1)} ${(-h * 0.38).toFixed(1)}
-                       C${(w * 0.78).toFixed(1)} ${(-h * 0.16).toFixed(1)}, ${(w * 0.38).toFixed(1)} ${(h * 0.1).toFixed(1)}, 0 0 Z"
-                    fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.62" stroke-linejoin="round"/>
-              <path d="M0 0 Q${(w * 0.4).toFixed(1)} ${(-h * 0.16).toFixed(1)} ${(w * 0.88).toFixed(1)} ${(-h * 0.3).toFixed(1)}"
-                    fill="none" stroke="${palette.deep}" stroke-width="0.38" stroke-opacity="0.5"/>
-              <path d="M${(w * 0.16).toFixed(1)} ${(-h * 0.08).toFixed(1)} Q${(w * 0.32).toFixed(1)} ${(-h * 0.18).toFixed(1)} ${(w * 0.5).toFixed(1)} ${(-h * 0.24).toFixed(1)}"
-                    fill="none" stroke="${palette.light}" stroke-width="0.24" stroke-opacity="0.65"/>
-              <path d="M${(w * 0.22).toFixed(1)} ${(-h * 0.12).toFixed(1)} l${(w * 0.08).toFixed(1)} ${(-h * 0.05).toFixed(1)}"
-                    fill="none" stroke="${palette.mid}" stroke-width="0.2" stroke-opacity="0.45"/>
-            </g>
-          `;
-        }).join("");
-      }
-
-      function sprigSvg(color, variant = "branch", uid = "sprig") {
-        const palette = svgPalette(color);
-        const defs = svgDefs(uid, color);
-
-        if (variant === "lavender") {
-          return `<svg class="card-art__svg" viewBox="0 0 40 96" aria-hidden="true">
-            ${defs}
-            <path d="M20 88 C20 62, 20 36, 20 12" fill="none" stroke="url(#stem-${uid})" stroke-width="1.15" stroke-linecap="round"/>
-            ${[16, 30, 44, 58, 72].map((y, index) => `
-              <g transform="translate(20 ${y})">
-                <ellipse cx="0" cy="0" rx="5.2" ry="9.2" fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.55"
-                  transform="rotate(${index % 2 ? 10 : -8})"/>
-                <path d="M-1.2 0 Q0 -5.5 1.4 0" fill="none" stroke="${palette.deep}" stroke-width="0.3" stroke-opacity="0.45"/>
-                <ellipse cx="${index % 2 ? 4.8 : -4.8}" cy="${index % 2 ? -1.5 : 1.5}" rx="2.2" ry="4.4"
-                  fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.4" transform="rotate(${index % 2 ? 24 : -24})"/>
-              </g>
-            `).join("")}
-          </svg>`;
-        }
-
-        if (variant === "geo") {
-          return `<svg class="card-art__svg" viewBox="0 0 72 72" aria-hidden="true">
-            ${defs}
-            <g transform="translate(50 22)" fill="none" stroke="url(#leaf-${uid})" stroke-width="0.9" stroke-opacity="0.78">
-              <circle r="14"/><circle r="7" stroke="${palette.mid}" stroke-opacity="0.55"/>
-              <path d="M0 -14 V14 M-14 0 H14"/><path d="M-10 -10 L10 10 M10 -10 L-10 10" stroke-width="0.65"/>
-            </g>
-            <circle cx="50" cy="22" r="15.5" fill="url(#wash-${uid})" fill-opacity="0.18"/>
-          </svg>`;
-        }
-
-        const large = variant === "large";
-        const stem = large ? "M8 60 C22 44, 40 20, 76 8" : "M8 58 C22 42, 36 24, 66 10";
-        const leaves = large
-          ? [
-              { x: 58, y: 12, w: 14, h: 10, angle: -38 },
-              { x: 50, y: 18, w: 11, h: 8, angle: -52, flip: true },
-              { x: 40, y: 26, w: 12, h: 9, angle: -34 },
-              { x: 30, y: 36, w: 11, h: 8, angle: -48, flip: true },
-              { x: 20, y: 46, w: 10, h: 7, angle: -40 },
-              { x: 12, y: 54, w: 8, h: 6, angle: -55, flip: true }
-            ]
-          : [
-              { x: 52, y: 14, w: 12, h: 9, angle: -36 },
-              { x: 42, y: 24, w: 11, h: 8, angle: -50, flip: true },
-              { x: 30, y: 34, w: 10, h: 7, angle: -42 },
-              { x: 18, y: 46, w: 9, h: 6, angle: -54, flip: true },
-              { x: 10, y: 54, w: 7, h: 5, angle: -46 }
-            ];
-
-        return `<svg class="card-art__svg" viewBox="0 0 88 68" aria-hidden="true">
-          ${defs}
-          <path d="${stem}" fill="none" stroke="url(#stem-${uid})" stroke-width="${large ? 1.3 : 1.1}" stroke-linecap="round"/>
-          ${leafGroup(uid, color, leaves)}
-        </svg>`;
-      }
-
-      function accentSvg(color, uid = "accent") {
-        const palette = svgPalette(color);
-        const defs = svgDefs(uid, color);
-        return `<svg class="card-art__svg" viewBox="0 0 72 28" aria-hidden="true">
-          ${defs}
-          <path d="M6 14 H66" fill="none" stroke="${palette.deep}" stroke-opacity="0.28" stroke-width="0.75"/>
-          <g transform="translate(36 14)">
-            <path d="M0 -5 C-2.2 0, -2.2 0, 0 5 C2.2 0, 2.2 0, 0 -5 Z" fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.55"/>
-            <path d="M-8 -1.5 C-6.5 -4.5, -4 -4.5, -2.8 -1.8 C-4.2 0.5, -6.8 0.5, -8 -1.5 Z"
-                  fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.45"/>
-            <path d="M8 -1.5 C6.5 -4.5, 4 -4.5, 2.8 -1.8 C4.2 0.5, 6.8 0.5, 8 -1.5 Z"
-                  fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.45"/>
-          </g>
-        </svg>`;
-      }
-
-      function flowerSvg(color, uid = "flower") {
-        const palette = svgPalette(color);
-        const defs = svgDefs(uid, color);
-        return `<svg class="card-art__svg" viewBox="0 0 80 72" aria-hidden="true">
-          ${defs}
-          <path d="M72 8 C54 20 36 38 10 64" fill="none" stroke="url(#stem-${uid})" stroke-width="1.05" stroke-linecap="round"/>
-          ${[
-            { x: 58, y: 16, r: 3.6, petals: 5 },
-            { x: 44, y: 28, r: 3.1, petals: 4 },
-            { x: 30, y: 42, r: 2.8, petals: 4 }
-          ].map((bloom) => `
-            <g transform="translate(${bloom.x} ${bloom.y})">
-              ${Array.from({ length: bloom.petals }, (_, index) => {
-                const angle = (360 / bloom.petals) * index;
-                return `<ellipse cx="0" cy="${(-bloom.r).toFixed(1)}" rx="${(bloom.r * 0.55).toFixed(1)}" ry="${bloom.r.toFixed(1)}"
-                  fill="url(#wash-${uid})" stroke="url(#leaf-${uid})" stroke-width="0.45" transform="rotate(${angle})"/>`;
-              }).join("")}
-              <circle r="1.1" fill="${palette.mid}" fill-opacity="0.75"/>
-            </g>
-          `).join("")}
-          ${leafGroup(uid, color, [
-            { x: 64, y: 20, w: 9, h: 6, angle: -28 },
-            { x: 48, y: 34, w: 8, h: 5, angle: -42, flip: true }
-          ])}
-        </svg>`;
-      }
-
-      function decorationsMarkup(theme, cardIndex) {
-        const color = theme.accent;
-        const parts = [];
-        for (const slot of theme.decor) {
-          const uid = `${cardIndex}-${slot}-${artUid++}`;
-          let html = "";
-          if (slot === "tl") html = sprigSvg(color, "branch", uid);
-          else if (slot === "tr") html = theme.id === "blush" ? flowerSvg(color, uid) : sprigSvg(color, "branch", uid);
-          else if (slot === "bl") html = sprigSvg(color, "branch", uid);
-          else if (slot === "br") html = sprigSvg(color, "branch", uid);
-          else if (slot === "tl-large") html = sprigSvg(color, "large", uid);
-          else if (slot === "tr-tall") html = sprigSvg(color, "lavender", uid);
-          else if (slot === "tr-geo") html = sprigSvg(color, "geo", uid);
-          else if (slot === "top") html = accentSvg(color, uid);
-          else if (slot === "bottom") html = accentSvg(color, uid);
-          else continue;
-          parts.push(`<span class="card-art card-art--${slot}" aria-hidden="true">${html}</span>`);
-        }
-        return parts.join("");
       }
 
       function escapeHTML(value) {
@@ -236,11 +42,29 @@
           .replaceAll("'", "&#039;");
       }
 
-      function lengthClass(hadith) {
-        const totalLength = `${hadith.arabic || ""} ${hadith.english || ""}`.length;
-        if (totalLength > 260) return "very-long";
-        if (totalLength > 170) return "long";
+      const lengthThresholds = {
+        arabic: { long: 70, veryLong: 110 },
+        english: { long: 120, veryLong: 170 }
+      };
+
+      function textLengthClass(text, script) {
+        const n = (text || "").length;
+        const thresholds = lengthThresholds[script];
+        if (n > thresholds.veryLong) return "very-long";
+        if (n > thresholds.long) return "long";
         return "";
+      }
+
+      function tierRank(tier) {
+        if (tier === "very-long") return 2;
+        if (tier === "long") return 1;
+        return 0;
+      }
+
+      function cardLengthClass(hadith) {
+        const arabicTier = textLengthClass(hadith.arabic, "arabic");
+        const englishTier = textLengthClass(hadith.english, "english");
+        return tierRank(arabicTier) >= tierRank(englishTier) ? arabicTier : englishTier;
       }
 
       function cutGuides() {
@@ -256,17 +80,14 @@
       function cardTemplate(hadith, index) {
         const theme = pickTheme(index);
         const themeClass = `theme-${(index % 10) + 1}`;
+        const arabicClass = textLengthClass(hadith.arabic, "arabic");
+        const englishClass = textLengthClass(hadith.english, "english");
         return `
-          <article class="card ${themeClass} ${lengthClass(hadith)}" style="--card-bg:${theme.bg};--accent:${theme.accent}">
-            <span class="frame-corner frame-corner--top-left" aria-hidden="true"></span>
-            <span class="frame-corner frame-corner--top-right" aria-hidden="true"></span>
-            <span class="frame-corner frame-corner--bottom-left" aria-hidden="true"></span>
-            <span class="frame-corner frame-corner--bottom-right" aria-hidden="true"></span>
-            ${decorationsMarkup(theme, index)}
+          <article class="card ${themeClass} ${cardLengthClass(hadith)}" style="--card-bg:${theme.bg};--accent:${theme.accent}">
             <div class="card-copy">
-              <p class="arabic" lang="ar" dir="rtl">${escapeHTML(hadith.arabic)}</p>
-              <span class="divider" aria-hidden="true"></span>
-              <p class="english">${escapeHTML(hadith.english)}</p>
+              <p class="arabic ${arabicClass}" lang="ar" dir="rtl">${escapeHTML(hadith.arabic)}</p>
+              <hr class="copy-rule" aria-hidden="true">
+              <p class="english ${englishClass}">${escapeHTML(hadith.english)}</p>
             </div>
             <p class="source">${escapeHTML(hadith.source)}</p>
           </article>
@@ -274,6 +95,17 @@
       }
 
       function render() {
+        if (typeof hadiths === "undefined" || !Array.isArray(hadiths)) {
+          pagesRoot.innerHTML = `
+            <p class="load-message load-message--error">
+              Could not load <code>hadiths.js</code>. Start a local server from the repo root
+              (<code>python3 -m http.server 8000</code>), then open
+              <a href="http://localhost:8000/hadith-cards/">http://localhost:8000/hadith-cards/</a>.
+            </p>
+          `;
+          return;
+        }
+
         const paddedHadiths = [...hadiths];
         while (paddedHadiths.length < cardsPerPage * totalPages) {
           paddedHadiths.push({
