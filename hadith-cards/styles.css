@@ -1,6 +1,8 @@
 @font-face {
   font-family: "Local Scheherazade";
-  src: local("Scheherazade New"), url("/assets/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
+  src: url("/assets/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -52,6 +54,23 @@ body {
   display: grid;
   gap: 0.35in;
   padding: 0.35in 0;
+}
+
+.load-message {
+  width: var(--page-width);
+  margin: 0 auto;
+  padding: 0.5in;
+  color: var(--muted);
+  font-size: 0.14in;
+  text-align: center;
+}
+
+.load-message--error {
+  color: #6b2f2f;
+}
+
+.load-message code {
+  font-size: 0.9em;
 }
 
 .sheet {
@@ -118,6 +137,7 @@ body {
   --accent: #d7a754;
   --accent-rgb: 215, 167, 84;
   --shade-rgb: 255, 248, 232;
+  --frame-ink: #3f463c;
   position: relative;
   z-index: 1;
   display: grid;
@@ -126,152 +146,31 @@ body {
   min-height: 0;
   padding: 0.11in 0.22in 0.08in;
   overflow: hidden;
-  border: 0.72pt solid color-mix(in srgb, var(--accent) 68%, transparent);
-  border-radius: 0.105in;
-  background:
-    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.92), transparent 38%),
-    radial-gradient(circle at 88% 80%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 45%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.78), color-mix(in srgb, var(--card-bg) 88%, white)),
-    var(--card-bg);
-  box-shadow:
-    inset 0 0 0 0.7pt rgba(255, 255, 255, 0.78),
-    0 0.01in 0.03in rgba(47, 38, 27, 0.08);
+  border: none;
+  border-radius: 0.07in;
+  background: var(--card-bg);
+  box-shadow: 0 0.008in 0.02in rgba(47, 38, 27, 0.06);
   break-inside: avoid;
 }
 
 .card::before {
   content: "";
   position: absolute;
-  inset: 0.045in;
-  border: 0.45pt solid color-mix(in srgb, var(--accent) 24%, transparent);
-  border-radius: 0.075in;
-  pointer-events: none;
-}
-
-.card-art {
-  position: absolute;
+  inset: 0.036in;
   z-index: 1;
+  border: 0.5pt solid color-mix(in srgb, var(--frame-ink) 82%, transparent);
+  border-radius: 0.05in;
   pointer-events: none;
-  color: var(--accent);
 }
 
-.card-art__svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  opacity: 0.92;
-}
-
-.card-art--tl,
-.card-art--tl-large {
-  top: 0.05in;
-  left: 0.05in;
-  width: 0.38in;
-  height: 0.28in;
-}
-
-.card-art--tl-large {
-  width: 0.46in;
-  height: 0.38in;
-}
-
-.card-art--tr,
-.card-art--tr-tall,
-.card-art--tr-geo {
-  top: 0.05in;
-  right: 0.05in;
-  width: 0.38in;
-  height: 0.28in;
-}
-
-.card-art--tr {
-  transform: scaleX(-1);
-}
-
-.card-art--tr-tall {
-  width: 0.18in;
-  height: 0.5in;
-  transform: none;
-}
-
-.card-art--tr-geo {
-  width: 0.34in;
-  height: 0.34in;
-  transform: none;
-}
-
-.card-art--bl {
-  bottom: 0.1in;
-  left: 0.05in;
-  width: 0.38in;
-  height: 0.28in;
-  transform: scaleY(-1);
-}
-
-.card-art--br {
-  right: 0.05in;
-  bottom: 0.1in;
-  width: 0.38in;
-  height: 0.28in;
-  transform: scale(-1);
-}
-
-.card-art--top,
-.card-art--bottom {
-  left: 50%;
-  width: 0.56in;
-  height: 0.12in;
-  transform: translateX(-50%);
-}
-
-.card-art--top {
-  top: 0.055in;
-}
-
-.card-art--bottom {
-  bottom: 0.16in;
-  transform: translateX(-50%) scaleY(-1);
-}
-
-.frame-corner {
+.card::after {
+  content: "";
   position: absolute;
+  inset: 0.054in;
   z-index: 1;
-  width: 0.22in;
-  height: 0.22in;
+  border: 0.38pt solid color-mix(in srgb, var(--frame-ink) 38%, transparent);
+  border-radius: 0.038in;
   pointer-events: none;
-  border-color: color-mix(in srgb, var(--accent) 62%, transparent);
-}
-
-.frame-corner--top-left {
-  top: 0.045in;
-  left: 0.045in;
-  border-top: 0.75pt solid;
-  border-left: 0.75pt solid;
-  border-top-left-radius: 0.065in;
-}
-
-.frame-corner--top-right {
-  top: 0.045in;
-  right: 0.045in;
-  border-top: 0.75pt solid;
-  border-right: 0.75pt solid;
-  border-top-right-radius: 0.065in;
-}
-
-.frame-corner--bottom-left {
-  bottom: 0.045in;
-  left: 0.045in;
-  border-bottom: 0.75pt solid;
-  border-left: 0.75pt solid;
-  border-bottom-left-radius: 0.065in;
-}
-
-.frame-corner--bottom-right {
-  right: 0.045in;
-  bottom: 0.045in;
-  border-right: 0.75pt solid;
-  border-bottom: 0.75pt solid;
-  border-bottom-right-radius: 0.065in;
 }
 
 .card-copy {
@@ -279,10 +178,21 @@ body {
   z-index: 2;
   align-self: center;
   display: grid;
-  gap: 0.035in;
+  gap: 0;
   justify-items: center;
   width: 100%;
   padding: 0.02in 0.03in 0;
+}
+
+.copy-rule {
+  display: block;
+  width: min(52%, 1.38in);
+  height: 0;
+  margin: 0.048in 0 0.04in;
+  padding: 0;
+  border: 0;
+  border-top: 0.3pt solid color-mix(in srgb, var(--ink) 16%, transparent);
+  background: none;
 }
 
 .arabic,
@@ -295,11 +205,13 @@ body {
 
 .arabic {
   width: 100%;
-  color: #11120e;
+  margin-bottom: 0.012in;
+  color: #2a2a24;
   font-family: "Local Scheherazade", "Scheherazade New", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
   font-size: 0.248in;
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 300;
+  font-synthesis: none;
+  line-height: 1.44;
   text-align: center;
   direction: rtl;
   unicode-bidi: isolate;
@@ -308,9 +220,11 @@ body {
 
 .english {
   max-width: 88%;
-  color: var(--muted);
-  font-size: 0.115in;
-  font-weight: 700;
+  margin-top: 0.006in;
+  color: color-mix(in srgb, var(--muted) 72%, #8a8778);
+  font-size: 0.156in;
+  font-style: italic;
+  font-weight: 400;
   line-height: 1.18;
   text-align: center;
   text-wrap: balance;
@@ -328,83 +242,46 @@ body {
   text-align: center;
 }
 
-.divider {
-  position: relative;
-  display: block;
-  width: 1.05in;
-  height: 0.06in;
-  margin: 0.005in 0 0.012in;
-  z-index: 2;
+.arabic.long {
+  font-size: 0.2in;
+  line-height: 1.37;
 }
 
-.divider::before,
-.divider::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 0.42in;
-  border-top: 0.65pt solid color-mix(in srgb, var(--accent) 68%, transparent);
+.english.long {
+  font-size: 0.14in;
 }
 
-.divider::before {
-  left: 0;
+.card.long .copy-rule {
+  width: min(46%, 1.18in);
+  margin-block: 0.036in 0.03in;
 }
 
-.divider::after {
-  right: 0;
+.card.long {
+  padding-block: 0.1in 0.075in;
 }
 
-.divider {
-  background:
-    radial-gradient(circle, color-mix(in srgb, var(--accent) 95%, transparent) 0 24%, transparent 25%),
-    linear-gradient(45deg, transparent 39%, color-mix(in srgb, var(--accent) 72%, transparent) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat,
-    linear-gradient(-45deg, transparent 39%, color-mix(in srgb, var(--accent) 72%, transparent) 40% 60%, transparent 61%) center / 0.065in 0.065in no-repeat;
-  background-position: center;
-  background-size: 0.022in 0.022in, 0.065in 0.065in, 0.065in 0.065in;
-  background-repeat: no-repeat;
+.arabic.very-long {
+  font-size: 0.168in;
+  line-height: 1.3;
 }
 
-.long .arabic {
-  font-size: 0.19in;
-  line-height: 1.14;
-}
-
-.long .english {
-  font-size: 0.101in;
-}
-
-.long .divider {
-  margin-bottom: 0.004in;
-}
-
-.very-long {
-  padding-inline: 0.18in;
-}
-
-.very-long .arabic {
-  font-size: 0.142in;
-  line-height: 1.08;
-}
-
-.very-long .english {
+.english.very-long {
   max-width: 92%;
-  font-size: 0.086in;
+  font-size: 0.128in;
   line-height: 1.1;
 }
 
-.very-long .source {
+.card.very-long {
+  padding: 0.09in 0.18in 0.07in;
+}
+
+.card.very-long .copy-rule {
+  width: min(40%, 1in);
+  margin-block: 0.024in 0.02in;
+}
+
+.card.very-long .source {
   font-size: 0.074in;
-}
-
-.very-long .divider {
-  width: 0.78in;
-  height: 0.04in;
-  margin-bottom: 0;
-}
-
-.very-long .divider::before,
-.very-long .divider::after {
-  width: 0.3in;
 }
 
 .theme-1 {
