@@ -61,7 +61,6 @@ function renderSiteHeader(active) {
         ${navLink("#study", "Study", active === "study")}
         ${navLink("#split", "Split View", active === "split")}
         ${navLink("#gallery", "Gallery", active === "gallery")}
-        ${navLink("#about", "About", active === "about")}
         <li><a href="wireframes.html">Layouts</a></li>
       </ul>
     </header>
@@ -212,7 +211,6 @@ function renderLanding() {
         <div class="landing-actions">
           <a class="btn btn--primary" href="#collection">The Collection</a>
           <a class="btn" href="#study">Study mode</a>
-          <a class="btn" href="#about">About this site</a>
         </div>
       </section>
     </main>
