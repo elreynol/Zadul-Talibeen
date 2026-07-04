@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build printable hadith cards (A4, 2×4 grid) from verified YAML + mockup overlays."""
+"""Build printable Zād al-Ṭalibīn provisions (A4, 2×4 grid) from verified YAML + mockup overlays."""
 
 from __future__ import annotations
 
@@ -103,7 +103,7 @@ def build_html(hadiths: list[dict], themes: list[dict]) -> str:
 <html lang="ar">
 <head>
 <meta charset="utf-8">
-<title>Hadith Cards — Zad al-Talibin (1–60)</title>
+<title>Provisions of the Seekers — Zād al-Ṭalibīn (1–60)</title>
 <style>
 @font-face {{ font-family: Scheherazade; src: url("{scheh}"); }}
 @font-face {{ font-family: Cormorant; src: url("{corm}"); }}

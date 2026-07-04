@@ -1,3 +1,9 @@
+const SITE = {
+  en: "Provisions of the Seekers",
+  ar: "زاد الطالبين",
+  translit: "Zād al-Ṭalibīn"
+};
+
 const themeAssets = [
   { id: "cream", bg: "#fdf8ee", accent: "#c9a05a" },
   { id: "mint", bg: "#f7f7f0", accent: "#8ea866" },
@@ -48,9 +54,10 @@ function navLink(href, label, active) {
 function renderSiteHeader(active) {
   return `
     <header class="site-header">
-      <p class="site-title"><a href="#/">Hadith Cards</a></p>
+      <p class="site-title site-title--ar"><a href="#/" lang="ar" dir="rtl">${SITE.ar}</a></p>
       <ul class="site-nav">
-        ${navLink("#/", "The Collection", active === "collection")}
+        ${navLink("#/", "Home", active === "home")}
+        ${navLink("#collection", "The Collection", active === "collection")}
         ${navLink("#study", "Study", active === "study")}
         ${navLink("#split", "Split View", active === "split")}
         ${navLink("#gallery", "Gallery", active === "gallery")}
@@ -64,7 +71,7 @@ function renderSiteHeader(active) {
 function renderSiteFooter() {
   return `
     <footer class="site-footer">
-      <p>Short hadiths for study and reflection. Printable cards are maintained on the <code>main</code> branch.</p>
+      <p>Sixty short hadiths from ${SITE.translit} for study and reflection. Printable sheets are maintained on the <code>main</code> branch.</p>
     </footer>
   `;
 }
@@ -108,6 +115,111 @@ function renderPrevNext(id) {
   `;
 }
 
+function renderLanding() {
+  return `
+    ${renderSiteHeader("home")}
+    <main class="landing-page">
+      <section class="hero landing-hero">
+        <h1>${SITE.en}</h1>
+        <p class="hero-subtitle" lang="ar" dir="rtl">${SITE.ar}</p>
+        <p class="landing-lede">
+          A celebrated manual of prophetic hadiths — concise gems of wisdom
+          (<em>jawāmiʿ al-kalim</em>) drawn from the Messenger of Allah&nbsp;ﷺ.
+        </p>
+        <div class="landing-actions">
+          <a class="btn btn--primary" href="#collection">Browse the collection</a>
+          <a class="btn" href="#study">Start studying</a>
+        </div>
+      </section>
+
+      <section class="landing-section" aria-labelledby="landing-book">
+        <h2 id="landing-book">The book</h2>
+        <p>
+          <em>${SITE.translit}</em> (<span lang="ar" dir="rtl">${SITE.ar}</span>) is a collection of
+          327 hadiths compiled by Shaykh Muḥammad&nbsp;ʿĀshiq&nbsp;Ilāhī al-Bulandshehrī from
+          ʿAllāma Wali al-Dīn al-Ṭabarīzī’s renowned compilation,
+          <em>Mishkāt al-Maṣābīḥ</em> — itself a revision of al-Baghawī’s
+          <em>Maṣābīḥ al-Sunnah</em>, completed in 737&nbsp;AH (1336&nbsp;CE).
+        </p>
+        <p>
+          Most of the selected hadiths are short quotations — comprehensive in meaning,
+          easy to memorize, and covering virtually every aspect of life. The first chapter
+          arranges 261 hadiths by Arabic grammatical structure to help students learn
+          grammar through the blessed words of the Prophet&nbsp;ﷺ. This site presents
+          the first sixty: the <strong>nominal sentences</strong> (<span lang="ar" dir="rtl">الجملة الاسمية</span>).
+        </p>
+      </section>
+
+      <section class="landing-section" aria-labelledby="landing-author">
+        <h2 id="landing-author">The author</h2>
+        <p>
+          Shaykh Muḥammad&nbsp;ʿĀshiq&nbsp;Ilāhī al-Bulandshehrī (1924/25–2002) was born in
+          Bulandshahr, India. He graduated from Mazāhir al-ʿUlūm, Saharanpur, and was a
+          distinguished student of Shaykh al-Ḥadīth Muḥammad Zakariyya Kandhlawi. He taught
+          Qurʾanic exegesis and hadith for twelve years at Dār al-ʿUlūm Karachi before
+          settling in Madīnah, where he passed away and was buried in al-Baqīʿ.
+        </p>
+        <p>
+          Under the guidance of his teacher, he authored many works on education, law,
+          and hadith. <em>${SITE.translit}</em> remains among his most widely taught.
+        </p>
+      </section>
+
+      <section class="landing-section" aria-labelledby="landing-goal">
+        <h2 id="landing-goal">Its purpose</h2>
+        <p>In compiling the work, the author had three aims:</p>
+        <ol class="landing-list">
+          <li>To introduce a short hadith compilation into the early stages of the traditional madrasa curriculum (<em>Dars-e Niẓāmī</em>).</li>
+          <li>To teach Arabic grammar through the prophetic statements of the Messenger of Allah&nbsp;ﷺ.</li>
+          <li>To acquaint young students early with the style, eloquence, and guidance of hadith — a foundation for every sphere of life.</li>
+        </ol>
+        <p>
+          The book has been adopted in madrasas across Africa, Europe, Asia, and beyond,
+          and is often a student’s first formal hadith text — accustoming them to memorization,
+          inspiring comprehensive guidance, and molding the heart toward virtue.
+        </p>
+      </section>
+
+      <section class="landing-section" aria-labelledby="landing-history">
+        <h2 id="landing-history">History</h2>
+        <ul class="landing-timeline">
+          <li>
+            <strong>Maṣābīḥ al-Sunnah</strong> — al-Baghawī selects concise hadiths from the major collections,
+            arranged by topic.
+          </li>
+          <li>
+            <strong>737 AH / 1336 CE</strong> — al-Ṭabarīzī revises and expands the work as
+            <em>Mishkāt al-Maṣābīḥ</em>, adding references and hundreds of narrations.
+          </li>
+          <li>
+            <strong>1417 AH / 1996 CE</strong> — Shaykh ʿĀshiq Ilāhī’s <em>${SITE.translit}</em> is published;
+            selections are drawn entirely from the Mishkāt.
+          </li>
+          <li>
+            <strong>English edition</strong> — translated and commented upon by
+            Shaykh Abdur-Rahman ibn Yusuf Mangera as <em>${SITE.en}</em> (White Thread Press),
+            opening the text to a wider readership while preserving the original order.
+          </li>
+        </ul>
+      </section>
+
+      <section class="landing-section landing-section--cta" aria-labelledby="landing-begin">
+        <h2 id="landing-begin">Begin here</h2>
+        <p>
+          Explore all sixty nominal-sentence hadiths with Arabic text, English translation,
+          and source citations — or enter study mode to review them as flashcards.
+        </p>
+        <div class="landing-actions">
+          <a class="btn btn--primary" href="#collection">The Collection</a>
+          <a class="btn" href="#study">Study mode</a>
+          <a class="btn" href="#about">About this site</a>
+        </div>
+      </section>
+    </main>
+    ${renderSiteFooter()}
+  `;
+}
+
 function renderCollection(filterText = "") {
   const query = filterText.trim().toLowerCase();
   const items = hadiths
@@ -138,9 +250,10 @@ function renderCollection(filterText = "") {
   return `
     ${renderSiteHeader("collection")}
     <main>
-      <section class="hero">
-        <h1>The Hadith Card Collection</h1>
-        <p>Sixty short hadiths for study, reflection, and memorization.</p>
+      <section class="hero hero--compact">
+        <h1>The Collection</h1>
+        <p class="hero-subtitle" lang="ar" dir="rtl">${SITE.ar}</p>
+        <p>Sixty nominal-sentence hadiths from ${SITE.translit} for study, reflection, and memorization.</p>
       </section>
       <label class="visually-hidden" for="search">Search hadiths</label>
       <input
@@ -151,7 +264,7 @@ function renderCollection(filterText = "") {
         value="${escapeHTML(filterText)}"
         autocomplete="off"
       >
-      <ul class="collection-list" aria-label="Hadith collection">
+      <ul class="collection-list" aria-label="${SITE.translit} collection">
         ${list || `<li class="collection-item"><span class="collection-title">No hadiths match your search.</span></li>`}
       </ul>
     </main>
@@ -176,7 +289,7 @@ function renderDetail(id) {
         ${renderHadithCard(hadith, index)}
         ${renderPrevNext(id)}
         <p style="margin-top:1.5rem;text-align:center;">
-          <a class="btn" href="#/">← Back to collection</a>
+          <a class="btn" href="#collection">← Back to collection</a>
           <a class="btn btn--primary" href="#study/${hadith.id}">Study this hadith</a>
         </p>
       </article>
@@ -340,10 +453,10 @@ function renderGallery(openId) {
     ${renderSiteHeader("gallery")}
     <main>
       <section class="hero">
-        <h1>Card Gallery</h1>
-        <p>Browse all sixty cards with their botanical themes.</p>
+        <h1>Gallery</h1>
+        <p>Browse all sixty provisions from ${SITE.translit} with their botanical themes.</p>
       </section>
-      <div class="gallery-grid" aria-label="Hadith card gallery">
+      <div class="gallery-grid" aria-label="${SITE.translit} gallery">
         ${tiles}
       </div>
     </main>
@@ -384,14 +497,14 @@ function renderAbout() {
     ${renderSiteHeader("about")}
     <main>
       <article class="about-page">
-        <h1>About this collection</h1>
+        <h1>About ${SITE.en}</h1>
         <p>
-          This site presents sixty short hadiths drawn from classical sources, formatted for
-          daily study and memorization. Each card pairs Arabic text with an English translation
-          and its source.
+          This site presents sixty short hadiths from ${SITE.translit} (${SITE.ar}),
+          formatted for daily study and memorization. Each provision pairs Arabic text
+          with an English translation and its source.
         </p>
         <p>
-          The interactive site lives on the <code>website</code> branch. Printable card sheets
+          The interactive site lives on the <code>website</code> branch. Printable sheets
           for cutting and physical study are maintained separately on the <code>main</code> branch.
         </p>
         <p>
@@ -399,7 +512,7 @@ function renderAbout() {
           <a href="https://40hadithnawawi.com/" rel="noopener noreferrer">40HadithNawawi.com</a>.
         </p>
         <p>
-          <a class="btn btn--primary" href="#/">Browse the collection</a>
+          <a class="btn btn--primary" href="#collection">Browse the collection</a>
           <a class="btn" href="#study">Start studying</a>
         </p>
       </article>
@@ -413,7 +526,7 @@ function renderError(message) {
     ${renderSiteHeader("collection")}
     <main>
       <p class="load-message load-message--error">${message}</p>
-      <p style="text-align:center;"><a class="btn" href="#/">Back to collection</a></p>
+      <p style="text-align:center;"><a class="btn" href="#collection">Back to collection</a></p>
     </main>
     ${renderSiteFooter()}
   `;
@@ -436,6 +549,10 @@ function parseRoute() {
   const parts = raw.split("/").filter(Boolean);
 
   if (parts.length === 0 || parts[0] === "") {
+    return { view: "home" };
+  }
+
+  if (parts[0] === "collection") {
     return { view: "collection" };
   }
 
@@ -459,7 +576,7 @@ function parseRoute() {
     return { view: "about" };
   }
 
-  return { view: "collection" };
+  return { view: "home" };
 }
 
 let collectionFilter = "";
@@ -474,29 +591,37 @@ function render() {
   let html = "";
 
   switch (route.view) {
+    case "home":
+      html = renderLanding();
+      document.title = `${SITE.en} | ${SITE.translit}`;
+      break;
+    case "collection":
+      html = renderCollection(collectionFilter);
+      document.title = `The Collection — ${SITE.en}`;
+      break;
     case "detail":
       html = renderDetail(route.id);
-      document.title = `Hadith ${route.id} — Hadith Cards`;
+      document.title = `Hadith ${route.id} — ${SITE.en}`;
       break;
     case "study":
       html = renderStudy(route.id);
-      document.title = "Study — Hadith Cards";
+      document.title = `Study — ${SITE.en}`;
       break;
     case "split":
       html = renderSplit(route.id);
-      document.title = "Split View — Hadith Cards";
+      document.title = `Split View — ${SITE.en}`;
       break;
     case "gallery":
       html = renderGallery(route.id);
-      document.title = "Gallery — Hadith Cards";
+      document.title = `Gallery — ${SITE.en}`;
       break;
     case "about":
       html = renderAbout();
-      document.title = "About — Hadith Cards";
+      document.title = `About — ${SITE.en}`;
       break;
     default:
-      html = renderCollection(collectionFilter);
-      document.title = "Hadith Cards";
+      html = renderLanding();
+      document.title = `${SITE.en} | ${SITE.translit}`;
       break;
   }
 
