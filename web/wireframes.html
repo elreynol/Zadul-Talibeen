@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layout Wireframes — Hadith Cards</title>
+    <link rel="stylesheet" href="styles.css?v=1">
+  </head>
+  <body class="wireframes-page">
+    <header class="site-header">
+      <p class="site-title"><a href="index.html">Hadith Cards</a></p>
+      <ul class="site-nav">
+        <li><a href="index.html">Live site</a></li>
+        <li><a href="index.html#/">Collection</a></li>
+        <li><a href="index.html#study">Study</a></li>
+        <li><a href="index.html#split">Split</a></li>
+        <li><a href="index.html#gallery">Gallery</a></li>
+      </ul>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Layout wireframes</h1>
+        <p>Compare four layout directions before choosing. Each is implemented in the live site — follow the links to try them.</p>
+      </section>
+
+      <section class="wireframe-section" id="layout-a">
+        <span class="wireframe-label">Layout A</span>
+        <h2>Collection index + detail pages</h2>
+        <p>Numbered list on the home page; each hadith opens its own reading page with prev/next navigation. Closest to 40hadithnawawi.com.</p>
+        <div class="wireframe-frame wireframe-mock">
+          <p style="margin:0 0 0.75rem;font-weight:700;">The Hadith Card Collection</p>
+          <div style="height:2rem;border:1px solid var(--border);border-radius:0.25rem;margin-bottom:0.75rem;background:white;"></div>
+          <ul class="collection-list" style="max-width:none;">
+            <li class="collection-item"><span class="collection-number">Hadith 1</span> <span class="collection-title">The religion is to act with sincerity.</span></li>
+            <li class="collection-item"><span class="collection-number">Hadith 2</span> <span class="collection-title">Supplication is the essence of worship.</span></li>
+            <li class="collection-item"><span class="collection-number">Hadith 3</span> <span class="collection-title">A person will be with whom he loves.</span></li>
+          </ul>
+          <p style="margin:1rem 0 0;color:var(--muted);font-size:0.9rem;">→ Detail page: English · Arabic · source · Previous / Next</p>
+        </div>
+        <p><a class="btn btn--primary" href="index.html#/">Try Layout A</a></p>
+      </section>
+
+      <section class="wireframe-section" id="layout-b">
+        <span class="wireframe-label">Layout B</span>
+        <h2>Study mode (flashcard flow)</h2>
+        <p>One large card at a time with flip, Arabic/English toggles, keyboard arrows, and a slide-out numbered index.</p>
+        <div class="wireframe-frame wireframe-mock">
+          <div class="study-card" style="min-height:12rem;cursor:default;">
+            <p class="hadith-arabic" lang="ar" dir="rtl" style="font-size:1.35rem;">الدِّينُ النَّصِيحَةُ</p>
+            <hr class="hadith-rule">
+            <p class="hadith-english" style="font-size:1rem;">The religion is to act with sincerity.</p>
+          </div>
+          <div class="study-controls" style="margin-top:0.75rem;">
+            <span class="btn">Index</span>
+            <span class="btn">← Prev</span>
+            <span class="study-counter">1 / 60</span>
+            <span class="btn">Shuffle</span>
+            <span class="btn">Next →</span>
+          </div>
+        </div>
+        <p><a class="btn btn--primary" href="index.html#study">Try Layout B</a></p>
+      </section>
+
+      <section class="wireframe-section" id="layout-c">
+        <span class="wireframe-label">Layout C</span>
+        <h2>Split view (index + reader)</h2>
+        <p>Scrollable numbered list on the left; selected hadith on the right. Collapses to a stacked layout on mobile.</p>
+        <div class="wireframe-frame wireframe-mock">
+          <div class="wireframe-split">
+            <div class="wireframe-pane">
+              <strong>List</strong><br>
+              Hadith 1 …<br>
+              Hadith 2 …<br>
+              Hadith 3 … (active)
+            </div>
+            <div class="wireframe-pane">
+              <strong>Reader</strong><br>
+              Full card content<br>
+              ← Previous · Next →
+            </div>
+          </div>
+        </div>
+        <p><a class="btn btn--primary" href="index.html#split">Try Layout C</a></p>
+      </section>
+
+      <section class="wireframe-section" id="layout-d">
+        <span class="wireframe-label">Layout D</span>
+        <h2>Visual gallery</h2>
+        <p>Grid of themed card thumbnails; click to open a lightbox with full text and navigation.</p>
+        <div class="wireframe-frame wireframe-mock">
+          <div class="wireframe-gallery">
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+            <div class="wireframe-tile"></div>
+          </div>
+          <p style="margin:0.75rem 0 0;color:var(--muted);font-size:0.9rem;">→ Modal overlay with expanded card</p>
+        </div>
+        <p><a class="btn btn--primary" href="index.html#gallery">Try Layout D</a></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Recommendation: use <strong>Layout A</strong> for browsing and <strong>Layout B</strong> for memorization.</p>
+    </footer>
+  </body>
+</html>
