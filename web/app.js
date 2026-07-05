@@ -69,7 +69,7 @@ function renderSiteHeader(active) {
 function renderSiteFooter() {
   return `
     <footer class="site-footer">
-      <p>Sixty short hadiths from ${SITE.translit} for study and reflection. Printable sheets are maintained on the <code>main</code> branch.</p>
+      <p>Sixty short hadiths from ${SITE.translit} for study and reflection.</p>
     </footer>
   `;
 }
@@ -273,10 +273,20 @@ function renderCommentary(hadith) {
   const text = (hadith.commentary || "").trim();
   if (!text) return "";
 
+  const junkPattern = /[\{\}\\^*=<>]|^\d+\s*(?:fsad|psai|\*==)/i;
+
   const paragraphs = text
     .split(/\n\n+/)
     .map((p) => p.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter((p) => {
+      const letters = (p.match(/[A-Za-z]/g) || []).length;
+      if (letters < 8 && junkPattern.test(p)) return false;
+      if (/^[\d\s•"'*^,\\-]+$/.test(p)) return false;
+      return true;
+    });
+
+  if (!paragraphs.length) return "";
 
   return `
     <section class="hadith-commentary" aria-labelledby="commentary-heading-${hadith.id}">
