@@ -31,6 +31,8 @@ jobs:
 
       - name: Prepare site assets
         run: |
+          python3 -m pip install --quiet pyyaml
+          python3 scripts/export_hadiths_js.py
           mkdir -p web/assets
           cp -r assets/fonts web/assets/
 

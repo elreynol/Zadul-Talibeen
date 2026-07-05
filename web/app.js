@@ -61,7 +61,6 @@ function renderSiteHeader(active) {
         ${navLink("#study", "Study", active === "study")}
         ${navLink("#split", "Split View", active === "split")}
         ${navLink("#gallery", "Gallery", active === "gallery")}
-        <li><a href="wireframes.html">Layouts</a></li>
       </ul>
     </header>
   `;
@@ -270,6 +269,23 @@ function renderCollection(filterText = "") {
   `;
 }
 
+function renderCommentary(hadith) {
+  const text = (hadith.commentary || "").trim();
+  if (!text) return "";
+
+  const paragraphs = text
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
+  return `
+    <section class="hadith-commentary" aria-labelledby="commentary-heading-${hadith.id}">
+      <h2 id="commentary-heading-${hadith.id}">Commentary</h2>
+      ${paragraphs.map((p) => `<p>${escapeHTML(p)}</p>`).join("")}
+    </section>
+  `;
+}
+
 function renderDetail(id) {
   const hadith = getHadithById(id);
   if (!hadith) {
@@ -285,6 +301,7 @@ function renderDetail(id) {
         <p class="hadith-label">Hadith ${hadith.id}</p>
         <h1 class="visually-hidden">${escapeHTML(hadith.english)}</h1>
         ${renderHadithCard(hadith, index)}
+        ${renderCommentary(hadith)}
         ${renderPrevNext(id)}
         <p style="margin-top:1.5rem;text-align:center;">
           <a class="btn" href="#collection">← Back to collection</a>

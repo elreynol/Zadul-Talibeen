@@ -822,6 +822,34 @@ main {
   }
 }
 
+.hadith-commentary {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hadith-commentary h2 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+
+.hadith-commentary p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.hadith-commentary p:last-child {
+  margin-bottom: 0;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
