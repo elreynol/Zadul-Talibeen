@@ -23,6 +23,130 @@ const studyState = {
   flipped: false
 };
 
+/* Free browser text-to-speech for Arabic pronunciation */
+const speechState = {
+  supported: typeof window !== "undefined" && "speechSynthesis" in window,
+  speaking: false,
+  voices: []
+};
+
+const MALE_VOICE_HINT = /\b(male|majed|maged|naayf|nayeef|huss?ein|ahmed|omar|hamdan|bassel|hamed|shakir|laith|jamal|saleh|moaz|abdullah|fahed|taim|ali|ismael|ismail)\b/i;
+const FEMALE_VOICE_HINT = /\b(female|salma|laila|layla|zariyah|fatima|reem|amina|maryam|noura|sana|amal|aysha|iman|mouna)\b/i;
+
+function refreshSpeechVoices() {
+  if (!speechState.supported) return;
+  speechState.voices = window.speechSynthesis.getVoices() || [];
+}
+
+function arabicVoices() {
+  return speechState.voices.filter((voice) => String(voice.lang || "").toLowerCase().startsWith("ar"));
+}
+
+function pickArabicVoice() {
+  const voices = arabicVoices();
+  if (!voices.length) return null;
+
+  const male = voices.find((voice) => MALE_VOICE_HINT.test(voice.name) && !FEMALE_VOICE_HINT.test(voice.name));
+  if (male) return male;
+
+  // Prefer Saudi / MSA locales when gender is unknown
+  const preferredLocales = ["ar-sa", "ar-001", "ar-xa", "ar"];
+  for (const locale of preferredLocales) {
+    const match = voices.find((voice) => String(voice.lang || "").toLowerCase().replace("_", "-").startsWith(locale));
+    if (match) return match;
+  }
+
+  return voices[0];
+}
+
+function stopSpeech() {
+  if (!speechState.supported) return;
+  window.speechSynthesis.cancel();
+  speechState.speaking = false;
+  syncSpeechUi();
+}
+
+function speakArabic(text) {
+  if (!speechState.supported) return;
+  const arabic = String(text || "").trim();
+  if (!arabic) return;
+
+  refreshSpeechVoices();
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(arabic);
+  utterance.lang = "ar-SA";
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+
+  const voice = pickArabicVoice();
+  if (voice) {
+    utterance.voice = voice;
+    utterance.lang = voice.lang || "ar-SA";
+  }
+
+  utterance.onstart = () => {
+    speechState.speaking = true;
+    syncSpeechUi();
+  };
+  utterance.onend = () => {
+    speechState.speaking = false;
+    syncSpeechUi();
+  };
+  utterance.onerror = () => {
+    speechState.speaking = false;
+    syncSpeechUi();
+  };
+
+  speechState.speaking = true;
+  syncSpeechUi();
+
+  // Some browsers drop speak() if it runs in the same tick as cancel()
+  window.setTimeout(() => {
+    window.speechSynthesis.speak(utterance);
+  }, 0);
+}
+
+function speechControlsMarkup(hadithId) {
+  if (!speechState.supported) {
+    return `
+      <div class="speech-controls speech-controls--unsupported" role="group" aria-label="Arabic pronunciation">
+        <p class="speech-note">Arabic listen is not available in this browser.</p>
+      </div>
+    `;
+  }
+
+  const speakingClass = speechState.speaking ? " is-speaking" : "";
+  const stopDisabled = speechState.speaking ? "" : " disabled";
+
+  return `
+    <div class="speech-controls" role="group" aria-label="Arabic pronunciation">
+      <button
+        type="button"
+        class="btn speech-btn${speakingClass}"
+        data-action="speak-arabic"
+        data-id="${escapeHTML(hadithId)}"
+        aria-pressed="${speechState.speaking ? "true" : "false"}"
+      >
+        ${speechState.speaking ? "Playing…" : "Listen to Arabic"}
+      </button>
+      <button type="button" class="btn" data-action="stop-speech"${stopDisabled}>Stop</button>
+      <p class="speech-note">Free device voice · quality varies by browser</p>
+    </div>
+  `;
+}
+
+function syncSpeechUi() {
+  document.querySelectorAll("[data-action='speak-arabic']").forEach((button) => {
+    button.classList.toggle("is-speaking", speechState.speaking);
+    button.setAttribute("aria-pressed", speechState.speaking ? "true" : "false");
+    button.textContent = speechState.speaking ? "Playing…" : "Listen to Arabic";
+  });
+  document.querySelectorAll("[data-action='stop-speech']").forEach((button) => {
+    button.disabled = !speechState.speaking;
+  });
+}
+
 function pickTheme(index) {
   return index % 10 === 9 ? themeAssets[9] : themeAssets[index % 9];
 }
@@ -311,6 +435,7 @@ function renderDetail(id) {
         <p class="hadith-label">Hadith ${hadith.id}</p>
         <h1 class="visually-hidden">${escapeHTML(hadith.english)}</h1>
         ${renderHadithCard(hadith, index)}
+        ${speechControlsMarkup(hadith.id)}
         ${renderCommentary(hadith)}
         ${renderPrevNext(id)}
         <p style="margin-top:1.5rem;text-align:center;">
@@ -371,6 +496,7 @@ function renderStudy(startId) {
           </article>
         </div>
         <p class="hadith-source">${escapeHTML(hadith.source)}</p>
+        ${speechControlsMarkup(hadith.id)}
         <div class="study-mode-toggle" role="group" aria-label="Study display mode">
           <button type="button" class="btn${studyState.mode === "both" ? " is-active" : ""}" data-action="mode" data-mode="both">Both</button>
           <button type="button" class="btn${studyState.mode === "arabic" ? " is-active" : ""}" data-action="mode" data-mode="arabic">Arabic only</button>
@@ -711,13 +837,26 @@ function onBodyClick(event) {
   }
 
   if (action === "mode") {
+    stopSpeech();
     studyState.mode = target.dataset.mode;
     studyState.flipped = false;
     render();
     return;
   }
 
+  if (action === "speak-arabic") {
+    const hadith = getHadithById(target.dataset.id) || hadiths[studyState.index];
+    if (hadith) speakArabic(hadith.arabic);
+    return;
+  }
+
+  if (action === "stop-speech") {
+    stopSpeech();
+    return;
+  }
+
   if (action === "prev") {
+    stopSpeech();
     studyState.index = Math.max(0, studyState.index - 1);
     studyState.flipped = false;
     location.hash = `#study/${hadiths[studyState.index].id}`;
@@ -725,6 +864,7 @@ function onBodyClick(event) {
   }
 
   if (action === "next") {
+    stopSpeech();
     studyState.index = Math.min(hadiths.length - 1, studyState.index + 1);
     studyState.flipped = false;
     location.hash = `#study/${hadiths[studyState.index].id}`;
@@ -732,6 +872,7 @@ function onBodyClick(event) {
   }
 
   if (action === "shuffle") {
+    stopSpeech();
     studyState.index = Math.floor(Math.random() * hadiths.length);
     studyState.flipped = false;
     location.hash = `#study/${hadiths[studyState.index].id}`;
@@ -751,6 +892,7 @@ function onBodyClick(event) {
   }
 
   if (action === "pick-study") {
+    stopSpeech();
     studyState.index = hadithIndexFromId(target.dataset.id);
     studyState.flipped = false;
     document.querySelector(".drawer")?.setAttribute("hidden", "");
@@ -795,11 +937,13 @@ function onStudyCardKeydown(event) {
 function onStudyKeydown(event) {
   if (event.key === "ArrowLeft") {
     event.preventDefault();
+    stopSpeech();
     studyState.index = Math.max(0, studyState.index - 1);
     studyState.flipped = false;
     location.hash = `#study/${hadiths[studyState.index].id}`;
   } else if (event.key === "ArrowRight") {
     event.preventDefault();
+    stopSpeech();
     studyState.index = Math.min(hadiths.length - 1, studyState.index + 1);
     studyState.flipped = false;
     location.hash = `#study/${hadiths[studyState.index].id}`;
@@ -809,7 +953,15 @@ function onStudyKeydown(event) {
   }
 }
 
-window.addEventListener("hashchange", render);
+if (speechState.supported) {
+  refreshSpeechVoices();
+  window.speechSynthesis.addEventListener("voiceschanged", refreshSpeechVoices);
+}
+
+window.addEventListener("hashchange", () => {
+  stopSpeech();
+  render();
+});
 document.body.addEventListener("click", onBodyClick);
 document.body.addEventListener("keydown", onStudyCardKeydown);
 render();
