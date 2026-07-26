@@ -1,0 +1,890 @@
+@font-face {
+  font-family: "Local Scheherazade";
+  src: url("assets/fonts/ScheherazadeNew-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --paper: #faf9f6;
+  --ink: #1a1a16;
+  --muted: #5c5c52;
+  --link: #2d5a3d;
+  --link-hover: #1e3d29;
+  --border: rgba(26, 26, 22, 0.12);
+  --max-width: 42rem;
+  --nav-height: 3.25rem;
+  --frame-ink: #3f463c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--nav-height);
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--paper) 92%, white);
+  backdrop-filter: blur(8px);
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.site-title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-title--ar a {
+  font-family: "Local Scheherazade", "Scheherazade New", "Noto Naskh Arabic", serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.site-title a:hover {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+
+.site-nav a {
+  text-decoration: none;
+}
+
+.site-nav a.is-active {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+main {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.hero-subtitle {
+  margin: 0 0 0.65rem;
+  color: var(--ink);
+  font-family: "Local Scheherazade", "Scheherazade New", "Noto Naskh Arabic", serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.4;
+}
+
+.search-box {
+  display: block;
+  width: min(100%, var(--max-width));
+  margin: 0 auto 1.5rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.search-box:focus {
+  outline: 2px solid color-mix(in srgb, var(--link) 35%, transparent);
+  outline-offset: 1px;
+}
+
+.collection-list {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.collection-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.collection-item a {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.collection-item a:hover {
+  background: color-mix(in srgb, var(--link) 6%, transparent);
+  text-decoration: none;
+}
+
+.collection-number {
+  min-width: 5.5rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.collection-title {
+  font-size: 1.05rem;
+}
+
+.hadith-detail {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hadith-label {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hadith-card {
+  --card-bg: #fdf8ee;
+  --accent: #c9a05a;
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 2rem 1.75rem 1.5rem;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: var(--card-bg);
+  box-shadow: 0 0.15rem 0.75rem rgba(45, 40, 30, 0.08);
+}
+
+.hadith-card::before,
+.hadith-card::after {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 0.35rem;
+  pointer-events: none;
+}
+
+.hadith-card::before {
+  border: 1px solid color-mix(in srgb, var(--frame-ink) 70%, transparent);
+}
+
+.hadith-card::after {
+  inset: 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--frame-ink) 30%, transparent);
+}
+
+.hadith-card__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hadith-english {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+  font-style: italic;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.hadith-rule {
+  width: min(52%, 12rem);
+  height: 0;
+  margin: 0 auto 1.1rem;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.hadith-arabic {
+  margin: 0 0 1rem;
+  color: #2a2a24;
+  font-family: "Local Scheherazade", "Scheherazade New", "Noto Naskh Arabic", serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: center;
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+.hadith-source {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+}
+
+.hadith-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.hadith-nav a,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hadith-nav a:hover,
+.btn:hover {
+  border-color: color-mix(in srgb, var(--link) 40%, var(--border));
+  color: var(--link);
+  text-decoration: none;
+}
+
+.btn--primary {
+  border-color: color-mix(in srgb, var(--link) 30%, var(--border));
+  background: color-mix(in srgb, var(--link) 8%, white);
+  color: var(--link);
+  font-weight: 700;
+}
+
+.load-message {
+  max-width: var(--max-width);
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: white;
+  color: var(--muted);
+  text-align: center;
+}
+
+.load-message--error {
+  color: #6b2f2f;
+}
+
+.about-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.about-page h1 {
+  margin-top: 0;
+}
+
+.about-page p {
+  margin: 0 0 1rem;
+}
+
+/* Layout B — Study mode */
+.study-screen {
+  display: grid;
+  gap: 1.25rem;
+  min-height: calc(100vh - var(--nav-height) - 4rem);
+  align-content: center;
+  justify-items: center;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.study-card-wrap {
+  width: 100%;
+  perspective: 1200px;
+}
+
+.study-card {
+  --card-bg: #fdf8ee;
+  position: relative;
+  width: 100%;
+  min-height: 22rem;
+  padding: 2.25rem 1.5rem 1.75rem;
+  border-radius: 0.6rem;
+  background: var(--card-bg);
+  box-shadow: 0 0.25rem 1.25rem rgba(45, 40, 30, 0.1);
+  cursor: pointer;
+  transition: transform 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+.study-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.study-card-face {
+  display: grid;
+  align-content: center;
+  min-height: 16rem;
+}
+
+.study-card-face--back {
+  position: absolute;
+  inset: 2.25rem 1.5rem 1.75rem;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+.study-card-face--front {
+  backface-visibility: hidden;
+}
+
+.study-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.study-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.study-mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.study-mode-toggle .btn.is-active {
+  border-color: color-mix(in srgb, var(--link) 45%, var(--border));
+  background: color-mix(in srgb, var(--link) 12%, white);
+  color: var(--link);
+  font-weight: 700;
+}
+
+.study-counter {
+  min-width: 4.5rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.speech-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem 0.65rem;
+  width: 100%;
+  margin: 0.15rem 0 0.25rem;
+}
+
+.speech-controls--unsupported {
+  justify-content: center;
+}
+
+.speech-btn.is-speaking {
+  border-color: color-mix(in srgb, var(--link) 45%, var(--border));
+  background: color-mix(in srgb, var(--link) 12%, white);
+  color: var(--link);
+  font-weight: 700;
+}
+
+.speech-note {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.hadith-detail .speech-controls {
+  margin: 1rem 0 0.25rem;
+}
+
+/* Layout C — Split view */
+.split-layout {
+  display: grid;
+  grid-template-columns: minmax(14rem, 32%) 1fr;
+  gap: 1.5rem;
+  min-height: calc(100vh - var(--nav-height) - 4rem);
+}
+
+.split-list {
+  position: sticky;
+  top: calc(var(--nav-height) + 1rem);
+  max-height: calc(100vh - var(--nav-height) - 2rem);
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: white;
+  list-style: none;
+}
+
+.split-list li a {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  color: inherit;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.split-list li a:hover {
+  background: color-mix(in srgb, var(--link) 6%, transparent);
+  text-decoration: none;
+}
+
+.split-list li a.is-active {
+  background: color-mix(in srgb, var(--link) 10%, white);
+  font-weight: 700;
+}
+
+.split-list .collection-number {
+  display: inline;
+  min-width: 0;
+  margin-right: 0.35rem;
+}
+
+.split-reader {
+  min-width: 0;
+}
+
+/* Layout D — Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+  gap: 1rem;
+}
+
+.gallery-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  background: var(--card-bg, #fdf8ee);
+  box-shadow: 0 0.1rem 0.5rem rgba(45, 40, 30, 0.06);
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.gallery-tile:hover {
+  box-shadow: 0 0.2rem 0.85rem rgba(45, 40, 30, 0.12);
+  text-decoration: none;
+}
+
+.gallery-tile__badge {
+  position: absolute;
+  top: 0.45rem;
+  left: 0.45rem;
+  z-index: 2;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.gallery-tile__arabic {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 1.75rem 0.65rem 0.85rem;
+  color: #2a2a24;
+  font-family: "Local Scheherazade", "Scheherazade New", serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  direction: rtl;
+}
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(20, 18, 14, 0.55);
+}
+
+.gallery-modal[hidden] {
+  display: none;
+}
+
+.gallery-modal__panel {
+  width: min(100%, 28rem);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--paper);
+}
+
+.gallery-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* Drawer (study index) */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(20, 18, 14, 0.4);
+}
+
+.drawer-backdrop[hidden],
+.drawer[hidden] {
+  display: none;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 160;
+  width: min(100%, 22rem);
+  height: 100%;
+  overflow: auto;
+  padding: 1rem 0 2rem;
+  background: var(--paper);
+  box-shadow: -0.25rem 0 1.5rem rgba(20, 18, 14, 0.15);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.drawer .collection-list {
+  padding: 0 0.5rem;
+}
+
+/* Wireframes page */
+.wireframes-page main {
+  max-width: 56rem;
+}
+
+.wireframe-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.wireframe-section h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.35rem;
+}
+
+.wireframe-section p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.wireframe-frame {
+  padding: 1rem;
+  border: 2px dashed var(--border);
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.wireframe-mock {
+  pointer-events: none;
+  user-select: none;
+}
+
+.wireframe-label {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, var(--link) 10%, white);
+  color: var(--link);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.wireframe-split {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.75rem;
+  min-height: 14rem;
+}
+
+.wireframe-pane {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--paper) 50%, white);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.wireframe-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.wireframe-tile {
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  background: #fdf8ee;
+}
+
+.site-footer {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.landing-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.landing-hero {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.landing-lede {
+  max-width: 36rem;
+  margin: 0 auto 1.25rem;
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+.landing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.landing-section {
+  margin-bottom: 2.5rem;
+}
+
+.landing-section h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.landing-section p {
+  margin: 0 0 1rem;
+}
+
+.landing-section p:last-child {
+  margin-bottom: 0;
+}
+
+.landing-list,
+.landing-timeline {
+  margin: 0 0 1rem;
+  padding-left: 1.35rem;
+}
+
+.landing-list li,
+.landing-timeline li {
+  margin-bottom: 0.65rem;
+  padding-left: 0.15rem;
+}
+
+.landing-timeline {
+  list-style: none;
+  padding-left: 0;
+}
+
+.landing-timeline li {
+  padding-left: 1rem;
+  border-left: 2px solid color-mix(in srgb, var(--link) 35%, var(--border));
+}
+
+.landing-section--cta {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.landing-section--cta p {
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero--compact {
+  margin-bottom: 1.5rem;
+}
+
+.hero--compact h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .split-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .split-list {
+    position: static;
+    max-height: 14rem;
+  }
+
+  .hadith-nav {
+    flex-direction: column;
+  }
+
+  .wireframe-split,
+  .wireframe-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.hadith-commentary {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hadith-commentary h2 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+
+.hadith-commentary p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.hadith-commentary p:last-child {
+  margin-bottom: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-card {
+    transition: none;
+  }
+}
