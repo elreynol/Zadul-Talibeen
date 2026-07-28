@@ -32,6 +32,7 @@ const speechState = {
 
 const MALE_VOICE_HINT = /\b(male|majed|maged|naayf|nayeef|huss?ein|ahmed|omar|hamdan|bassel|hamed|shakir|laith|jamal|saleh|moaz|abdullah|fahed|taim|ali|ismael|ismail)\b/i;
 const FEMALE_VOICE_HINT = /\b(female|salma|laila|layla|zariyah|fatima|reem|amina|maryam|noura|sana|amal|aysha|iman|mouna)\b/i;
+const QUALITY_VOICE_HINT = /\b(enhanced|premium|neural|natural|online|compact|wavenet|chirp)\b/i;
 
 function refreshSpeechVoices() {
   if (!speechState.supported) return;
@@ -42,21 +43,45 @@ function arabicVoices() {
   return speechState.voices.filter((voice) => String(voice.lang || "").toLowerCase().startsWith("ar"));
 }
 
+function normalizeVoiceLang(lang) {
+  return String(lang || "")
+    .toLowerCase()
+    .replace("_", "-");
+}
+
+/* Score free device voices; prefer known high-quality MSA/male Arabic voices */
+function scoreArabicVoice(voice) {
+  const name = String(voice.name || "").toLowerCase();
+  const lang = normalizeVoiceLang(voice.lang);
+  let score = 0;
+
+  // Apple Majed / Maged — usually the best free MSA male voice
+  if (/majed|maged/.test(name)) score += 120;
+
+  // Cloud-backed Google Arabic voices (Chrome) tend to sound clearer
+  if (/google/.test(name)) score += 90;
+
+  // Microsoft male neural-style names when present on Windows
+  if (/microsoft/.test(name) && MALE_VOICE_HINT.test(name)) score += 75;
+  if (/microsoft/.test(name)) score += 20;
+
+  if (QUALITY_VOICE_HINT.test(name)) score += 40;
+  if (!voice.localService) score += 18;
+
+  if (MALE_VOICE_HINT.test(name) && !FEMALE_VOICE_HINT.test(name)) score += 35;
+  if (FEMALE_VOICE_HINT.test(name)) score -= 25;
+
+  if (lang.startsWith("ar-sa") || lang === "ar-001" || lang.startsWith("ar-xa")) score += 28;
+  else if (lang.startsWith("ar")) score += 10;
+
+  return score;
+}
+
 function pickArabicVoice() {
   const voices = arabicVoices();
   if (!voices.length) return null;
 
-  const male = voices.find((voice) => MALE_VOICE_HINT.test(voice.name) && !FEMALE_VOICE_HINT.test(voice.name));
-  if (male) return male;
-
-  // Prefer Saudi / MSA locales when gender is unknown
-  const preferredLocales = ["ar-sa", "ar-001", "ar-xa", "ar"];
-  for (const locale of preferredLocales) {
-    const match = voices.find((voice) => String(voice.lang || "").toLowerCase().replace("_", "-").startsWith(locale));
-    if (match) return match;
-  }
-
-  return voices[0];
+  return [...voices].sort((a, b) => scoreArabicVoice(b) - scoreArabicVoice(a))[0];
 }
 
 function stopSpeech() {
@@ -76,7 +101,7 @@ function speakArabic(text) {
 
   const utterance = new SpeechSynthesisUtterance(arabic);
   utterance.lang = "ar-SA";
-  utterance.rate = 0.9;
+  utterance.rate = 0.88;
   utterance.pitch = 1;
 
   const voice = pickArabicVoice();
@@ -107,43 +132,51 @@ function speakArabic(text) {
   }, 0);
 }
 
-function speechControlsMarkup(hadithId) {
-  if (!speechState.supported) {
-    return `
-      <div class="speech-controls speech-controls--unsupported" role="group" aria-label="Arabic pronunciation">
-        <p class="speech-note">Arabic listen is not available in this browser.</p>
-      </div>
-    `;
-  }
+function playIconSvg() {
+  return `
+    <svg class="card-play-btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M8 5.5v13l11-6.5L8 5.5z" fill="currentColor"/>
+    </svg>
+  `;
+}
+
+function stopIconSvg() {
+  return `
+    <svg class="card-play-btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect x="6.5" y="6.5" width="11" height="11" rx="1.5" fill="currentColor"/>
+    </svg>
+  `;
+}
+
+function cardPlayButtonMarkup(hadithId) {
+  if (!speechState.supported) return "";
 
   const speakingClass = speechState.speaking ? " is-speaking" : "";
-  const stopDisabled = speechState.speaking ? "" : " disabled";
+  const label = speechState.speaking ? "Stop Arabic pronunciation" : "Play Arabic pronunciation";
 
   return `
-    <div class="speech-controls" role="group" aria-label="Arabic pronunciation">
-      <button
-        type="button"
-        class="btn speech-btn${speakingClass}"
-        data-action="speak-arabic"
-        data-id="${escapeHTML(hadithId)}"
-        aria-pressed="${speechState.speaking ? "true" : "false"}"
-      >
-        ${speechState.speaking ? "Playing…" : "Listen to Arabic"}
-      </button>
-      <button type="button" class="btn" data-action="stop-speech"${stopDisabled}>Stop</button>
-      <p class="speech-note">Free device voice · quality varies by browser</p>
-    </div>
+    <button
+      type="button"
+      class="card-play-btn${speakingClass}"
+      data-action="speak-arabic"
+      data-id="${escapeHTML(hadithId)}"
+      aria-label="${label}"
+      aria-pressed="${speechState.speaking ? "true" : "false"}"
+      title="${label}"
+    >
+      ${speechState.speaking ? stopIconSvg() : playIconSvg()}
+    </button>
   `;
 }
 
 function syncSpeechUi() {
   document.querySelectorAll("[data-action='speak-arabic']").forEach((button) => {
+    const label = speechState.speaking ? "Stop Arabic pronunciation" : "Play Arabic pronunciation";
     button.classList.toggle("is-speaking", speechState.speaking);
     button.setAttribute("aria-pressed", speechState.speaking ? "true" : "false");
-    button.textContent = speechState.speaking ? "Playing…" : "Listen to Arabic";
-  });
-  document.querySelectorAll("[data-action='stop-speech']").forEach((button) => {
-    button.disabled = !speechState.speaking;
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    button.innerHTML = speechState.speaking ? stopIconSvg() : playIconSvg();
   });
 }
 
@@ -212,6 +245,7 @@ function renderHadithCard(hadith, index, options = {}) {
         <p class="${arabicClass}" lang="ar" dir="rtl">${escapeHTML(hadith.arabic)}</p>
         <p class="hadith-source">${escapeHTML(hadith.source)}</p>
       </div>
+      ${cardPlayButtonMarkup(hadith.id)}
     </article>
   `;
 }
@@ -435,7 +469,6 @@ function renderDetail(id) {
         <p class="hadith-label">Hadith ${hadith.id}</p>
         <h1 class="visually-hidden">${escapeHTML(hadith.english)}</h1>
         ${renderHadithCard(hadith, index)}
-        ${speechControlsMarkup(hadith.id)}
         ${renderCommentary(hadith)}
         ${renderPrevNext(id)}
         <p style="margin-top:1.5rem;text-align:center;">
@@ -478,7 +511,6 @@ function renderStudy(startId) {
     ${renderSiteHeader("study")}
     <main>
       <section class="study-screen" aria-label="Study mode">
-        <p class="study-hint">Tap the card to flip · Use arrow keys to navigate</p>
         <div class="study-card-wrap">
           <article
             class="study-card${flipClass}"
@@ -494,20 +526,19 @@ function renderStudy(startId) {
               ${studyFaceContent(hadith, backMode)}
             </div>
           </article>
+          ${cardPlayButtonMarkup(hadith.id)}
         </div>
         <p class="hadith-source">${escapeHTML(hadith.source)}</p>
-        ${speechControlsMarkup(hadith.id)}
         <div class="study-mode-toggle" role="group" aria-label="Study display mode">
-          <button type="button" class="btn${studyState.mode === "both" ? " is-active" : ""}" data-action="mode" data-mode="both">Both</button>
-          <button type="button" class="btn${studyState.mode === "arabic" ? " is-active" : ""}" data-action="mode" data-mode="arabic">Arabic only</button>
-          <button type="button" class="btn${studyState.mode === "english" ? " is-active" : ""}" data-action="mode" data-mode="english">English only</button>
+          <button type="button" class="btn${studyState.mode === "arabic" ? " is-active" : ""}" data-action="mode" data-mode="arabic" aria-pressed="${studyState.mode === "arabic" ? "true" : "false"}">Arabic only</button>
+          <button type="button" class="btn${studyState.mode === "english" ? " is-active" : ""}" data-action="mode" data-mode="english" aria-pressed="${studyState.mode === "english" ? "true" : "false"}">English only</button>
         </div>
         <div class="study-controls">
           <button type="button" class="btn" data-action="open-drawer" aria-expanded="false">Index</button>
           <button type="button" class="btn" data-action="prev">← Prev</button>
           <span class="study-counter">${studyState.index + 1} / ${hadiths.length}</span>
-          <button type="button" class="btn" data-action="shuffle" title="Random hadith">Shuffle</button>
           <button type="button" class="btn" data-action="next">Next →</button>
+          <button type="button" class="btn" data-action="shuffle" title="Random hadith">Shuffle</button>
         </div>
         <p style="margin:0;text-align:center;">
           <a class="btn" href="#hadith/${hadith.id}">Read full page</a>
@@ -838,20 +869,22 @@ function onBodyClick(event) {
 
   if (action === "mode") {
     stopSpeech();
-    studyState.mode = target.dataset.mode;
+    const nextMode = target.dataset.mode;
+    // Toggle off to show both when the active filter is clicked again
+    studyState.mode = studyState.mode === nextMode ? "both" : nextMode;
     studyState.flipped = false;
     render();
     return;
   }
 
   if (action === "speak-arabic") {
+    event.stopPropagation();
+    if (speechState.speaking) {
+      stopSpeech();
+      return;
+    }
     const hadith = getHadithById(target.dataset.id) || hadiths[studyState.index];
     if (hadith) speakArabic(hadith.arabic);
-    return;
-  }
-
-  if (action === "stop-speech") {
-    stopSpeech();
     return;
   }
 
