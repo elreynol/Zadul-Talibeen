@@ -216,7 +216,7 @@ main {
   --accent: #c9a05a;
   position: relative;
   margin-bottom: 2rem;
-  padding: 2rem 1.75rem 1.5rem;
+  padding: 2rem 1.75rem 3.25rem;
   overflow: hidden;
   border-radius: 0.5rem;
   background: var(--card-bg);
@@ -361,6 +361,7 @@ main {
 }
 
 .study-card-wrap {
+  position: relative;
   width: 100%;
   perspective: 1200px;
 }
@@ -370,7 +371,7 @@ main {
   position: relative;
   width: 100%;
   min-height: 22rem;
-  padding: 2.25rem 1.5rem 1.75rem;
+  padding: 2.25rem 1.5rem 3rem;
   border-radius: 0.6rem;
   background: var(--card-bg);
   box-shadow: 0 0.25rem 1.25rem rgba(45, 40, 30, 0.1);
@@ -391,20 +392,13 @@ main {
 
 .study-card-face--back {
   position: absolute;
-  inset: 2.25rem 1.5rem 1.75rem;
+  inset: 2.25rem 1.5rem 3rem;
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }
 
 .study-card-face--front {
   backface-visibility: hidden;
-}
-
-.study-hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.9rem;
-  text-align: center;
 }
 
 .study-controls {
@@ -437,37 +431,51 @@ main {
   text-align: center;
 }
 
-.speech-controls {
-  display: flex;
-  flex-wrap: wrap;
+.card-play-btn {
+  position: absolute;
+  z-index: 3;
+  left: 0.85rem;
+  bottom: 0.85rem;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem 0.65rem;
-  width: 100%;
-  margin: 0.15rem 0 0.25rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--frame-ink) 28%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, white 82%, var(--paper));
+  color: var(--ink);
+  box-shadow: 0 0.08rem 0.28rem rgba(45, 40, 30, 0.12);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
-.speech-controls--unsupported {
-  justify-content: center;
+.card-play-btn:hover {
+  border-color: color-mix(in srgb, var(--link) 40%, var(--border));
+  background: white;
+  color: var(--link);
 }
 
-.speech-btn.is-speaking {
+.card-play-btn:active {
+  transform: scale(0.96);
+}
+
+.card-play-btn.is-speaking {
   border-color: color-mix(in srgb, var(--link) 45%, var(--border));
   background: color-mix(in srgb, var(--link) 12%, white);
   color: var(--link);
-  font-weight: 700;
 }
 
-.speech-note {
-  flex-basis: 100%;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  text-align: center;
+.card-play-btn__icon {
+  width: 1rem;
+  height: 1rem;
+  display: block;
 }
 
-.hadith-detail .speech-controls {
-  margin: 1rem 0 0.25rem;
+.hadith-card .card-play-btn {
+  left: 1rem;
+  bottom: 1rem;
 }
 
 /* Layout C — Split view */
