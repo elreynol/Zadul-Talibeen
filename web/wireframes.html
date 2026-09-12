@@ -4,21 +4,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Layout Wireframes — Provisions of the Seekers</title>
+    <meta name="color-scheme" content="light dark">
+    <script>
+      (function () {
+        var key = "zad-theme";
+        var theme = "light";
+        try {
+          var stored = localStorage.getItem(key);
+          if (stored === "dark" || stored === "light") {
+            theme = stored;
+          } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            theme = "dark";
+          }
+        } catch (error) {}
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=8">
   </head>
   <body class="wireframes-page">
     <header class="site-header">
       <p class="site-title site-title--ar"><a href="index.html" lang="ar" dir="rtl">زاد الطالبين</a></p>
-      <ul class="site-nav">
-        <li><a href="index.html">Live site</a></li>
-        <li><a href="index.html#collection">Collection</a></li>
-        <li><a href="index.html#study">Study</a></li>
-        <li><a href="index.html#split">Split</a></li>
-        <li><a href="index.html#gallery">Gallery</a></li>
-      </ul>
+      <div class="site-header__tools">
+        <ul class="site-nav">
+          <li><a href="index.html">Live site</a></li>
+          <li><a href="index.html#collection">Collection</a></li>
+          <li><a href="index.html#study">Study</a></li>
+          <li><a href="index.html#split">Split</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+        </ul>
+        <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Switch to dark mode">
+          <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M16.2 13.4A7 7 0 0 1 10.6 4.8 7.3 7.3 0 1 0 19.2 16a7 7 0 0 1-3 0z"/>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <main>
@@ -34,7 +58,7 @@
         <div class="wireframe-frame wireframe-mock">
           <p style="margin:0 0 0.75rem;font-weight:700;">Provisions of the Seekers</p>
           <p style="margin:0 0 0.75rem;color:var(--muted);font-family:'Local Scheherazade',serif;" lang="ar" dir="rtl">زاد الطالبين</p>
-          <div style="height:2rem;border:1px solid var(--border);border-radius:0.25rem;margin-bottom:0.75rem;background:white;"></div>
+          <div style="height:2rem;border:1px solid var(--border);border-radius:0.25rem;margin-bottom:0.75rem;background:var(--surface);"></div>
           <ul class="collection-list" style="max-width:none;">
             <li class="collection-item"><span class="collection-number">Hadith 1</span> <span class="collection-title">The religion is to act with sincerity.</span></li>
             <li class="collection-item"><span class="collection-number">Hadith 2</span> <span class="collection-title">Supplication is the essence of worship.</span></li>
@@ -112,5 +136,45 @@
     <footer class="site-footer">
       <p>Recommendation: use <strong>Layout A</strong> for browsing and <strong>Layout B</strong> for memorization.</p>
     </footer>
+    <script>
+      (function () {
+        var key = "zad-theme";
+        var button = document.querySelector(".theme-toggle");
+        if (!button) return;
+
+        function currentTheme() {
+          return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        }
+
+        function moonIcon() {
+          return '<svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.2 13.4A7 7 0 0 1 10.6 4.8 7.3 7.3 0 1 0 19.2 16a7 7 0 0 1-3 0z"/></svg>';
+        }
+
+        function sunIcon() {
+          return '<svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="currentColor"/><path fill="currentColor" d="M11.15 2.4h1.7v2.6h-1.7zm0 16.6h1.7v2.6h-1.7zM2.4 11.15h2.6v1.7H2.4zm16.6 0h2.6v1.7h-2.6zM5.2 4.4l1.84 1.84-1.2 1.2L4 5.6zm11.76 11.76 1.84 1.84-1.2 1.2-1.84-1.84zM5.6 18.8l1.2-1.2 1.84 1.84-1.2 1.2zm11.76-11.76 1.2-1.2L20 7.68l-1.2 1.2z"/></svg>';
+        }
+
+        function sync() {
+          var isDark = currentTheme() === "dark";
+          var label = isDark ? "Switch to light mode" : "Switch to dark mode";
+          button.setAttribute("aria-pressed", isDark ? "true" : "false");
+          button.setAttribute("aria-label", label);
+          button.setAttribute("title", label);
+          button.innerHTML = isDark ? sunIcon() : moonIcon();
+        }
+
+        button.addEventListener("click", function () {
+          var next = currentTheme() === "dark" ? "light" : "dark";
+          document.documentElement.setAttribute("data-theme", next);
+          document.documentElement.style.colorScheme = next;
+          try {
+            localStorage.setItem(key, next);
+          } catch (error) {}
+          sync();
+        });
+
+        sync();
+      })();
+    </script>
   </body>
 </html>

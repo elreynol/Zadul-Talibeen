@@ -10,13 +10,46 @@
   --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --paper: #faf9f6;
   --ink: #1a1a16;
+  --ink-muted: #5c5c52;
   --muted: #5c5c52;
   --link: #2d5a3d;
   --link-hover: #1e3d29;
   --border: rgba(26, 26, 22, 0.12);
+  --surface: #ffffff;
+  --header-bg: color-mix(in srgb, var(--paper) 92%, white);
+  --shadow: rgba(45, 40, 30, 0.08);
+  --shadow-strong: rgba(45, 40, 30, 0.14);
+  --overlay: rgba(20, 18, 14, 0.55);
+  --drawer-overlay: rgba(20, 18, 14, 0.4);
+  --error: #6b2f2f;
+  --card-ink: #2a2a24;
+  --badge-bg: rgba(255, 255, 255, 0.88);
   --max-width: 42rem;
   --nav-height: 3.25rem;
   --frame-ink: #3f463c;
+  color-scheme: light;
+}
+
+/* Dark tokens replace the light ones when <html data-theme="dark"> is set. */
+[data-theme="dark"] {
+  --paper: #141311;
+  --ink: #f0ece2;
+  --ink-muted: #b9b4a6;
+  --muted: #b9b4a6;
+  --link: #9dcfab;
+  --link-hover: #c5e6cd;
+  --border: rgba(240, 236, 226, 0.16);
+  --surface: #1e1c18;
+  --header-bg: color-mix(in srgb, var(--paper) 88%, black);
+  --shadow: rgba(0, 0, 0, 0.4);
+  --shadow-strong: rgba(0, 0, 0, 0.55);
+  --overlay: rgba(0, 0, 0, 0.72);
+  --drawer-overlay: rgba(0, 0, 0, 0.55);
+  --error: #e8a8a8;
+  --card-ink: #efe8d8;
+  --badge-bg: color-mix(in srgb, var(--surface) 88%, transparent);
+  --frame-ink: #c9c3b4;
+  color-scheme: dark;
 }
 
 *,
@@ -29,6 +62,7 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  background: var(--paper);
 }
 
 body {
@@ -62,8 +96,46 @@ a:hover {
   min-height: var(--nav-height);
   padding: 0.65rem 1.25rem;
   border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--paper) 92%, white);
+  background: var(--header-bg);
   backdrop-filter: blur(8px);
+}
+
+.site-header__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: color-mix(in srgb, var(--link) 40%, var(--border));
+  color: var(--link);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--link) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.theme-toggle__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
 }
 
 .site-title {
@@ -149,7 +221,7 @@ main {
   padding: 0.65rem 0.9rem;
   border: 1px solid var(--border);
   border-radius: 0.35rem;
-  background: white;
+  background: var(--surface);
   color: var(--ink);
   font: inherit;
   font-size: 1rem;
@@ -220,7 +292,7 @@ main {
   overflow: hidden;
   border-radius: 0.5rem;
   background: var(--card-bg);
-  box-shadow: 0 0.15rem 0.75rem rgba(45, 40, 30, 0.08);
+  box-shadow: 0 0.15rem 0.75rem var(--shadow);
 }
 
 .hadith-card::before,
@@ -264,7 +336,7 @@ main {
 
 .hadith-arabic {
   margin: 0 0 1rem;
-  color: #2a2a24;
+  color: var(--card-ink);
   font-family: "Local Scheherazade", "Scheherazade New", "Noto Naskh Arabic", serif;
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 400;
@@ -299,7 +371,7 @@ main {
   padding: 0.45rem 1rem;
   border: 1px solid var(--border);
   border-radius: 0.35rem;
-  background: white;
+  background: var(--surface);
   color: var(--ink);
   font: inherit;
   font-size: 0.95rem;
@@ -316,7 +388,7 @@ main {
 
 .btn--primary {
   border-color: color-mix(in srgb, var(--link) 30%, var(--border));
-  background: color-mix(in srgb, var(--link) 8%, white);
+  background: color-mix(in srgb, var(--link) 12%, var(--surface));
   color: var(--link);
   font-weight: 700;
 }
@@ -327,13 +399,13 @@ main {
   padding: 1.5rem;
   border: 1px solid var(--border);
   border-radius: 0.35rem;
-  background: white;
+  background: var(--surface);
   color: var(--muted);
   text-align: center;
 }
 
 .load-message--error {
-  color: #6b2f2f;
+  color: var(--error);
 }
 
 .about-page {
@@ -374,7 +446,7 @@ main {
   padding: 2.25rem 1.5rem 3rem;
   border-radius: 0.6rem;
   background: var(--card-bg);
-  box-shadow: 0 0.25rem 1.25rem rgba(45, 40, 30, 0.1);
+  box-shadow: 0 0.25rem 1.25rem var(--shadow-strong);
   cursor: pointer;
   transition: transform 0.35s ease;
   transform-style: preserve-3d;
@@ -419,7 +491,7 @@ main {
 
 .study-mode-toggle .btn.is-active {
   border-color: color-mix(in srgb, var(--link) 45%, var(--border));
-  background: color-mix(in srgb, var(--link) 12%, white);
+  background: color-mix(in srgb, var(--link) 12%, var(--surface));
   color: var(--link);
   font-weight: 700;
 }
@@ -444,16 +516,16 @@ main {
   padding: 0;
   border: 1px solid color-mix(in srgb, var(--frame-ink) 28%, transparent);
   border-radius: 999px;
-  background: color-mix(in srgb, white 82%, var(--paper));
+  background: color-mix(in srgb, var(--surface) 82%, var(--paper));
   color: var(--ink);
-  box-shadow: 0 0.08rem 0.28rem rgba(45, 40, 30, 0.12);
+  box-shadow: 0 0.08rem 0.28rem var(--shadow);
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .card-play-btn:hover {
   border-color: color-mix(in srgb, var(--link) 40%, var(--border));
-  background: white;
+  background: var(--surface);
   color: var(--link);
 }
 
@@ -463,7 +535,7 @@ main {
 
 .card-play-btn.is-speaking {
   border-color: color-mix(in srgb, var(--link) 45%, var(--border));
-  background: color-mix(in srgb, var(--link) 12%, white);
+  background: color-mix(in srgb, var(--link) 12%, var(--surface));
   color: var(--link);
 }
 
@@ -495,7 +567,7 @@ main {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 0.4rem;
-  background: white;
+  background: var(--surface);
   list-style: none;
 }
 
@@ -514,7 +586,7 @@ main {
 }
 
 .split-list li a.is-active {
-  background: color-mix(in srgb, var(--link) 10%, white);
+  background: color-mix(in srgb, var(--link) 10%, var(--surface));
   font-weight: 700;
 }
 
@@ -544,14 +616,14 @@ main {
   border: 1px solid var(--border);
   border-radius: 0.45rem;
   background: var(--card-bg, #fdf8ee);
-  box-shadow: 0 0.1rem 0.5rem rgba(45, 40, 30, 0.06);
+  box-shadow: 0 0.1rem 0.5rem var(--shadow);
   cursor: pointer;
   text-align: center;
   text-decoration: none;
 }
 
 .gallery-tile:hover {
-  box-shadow: 0 0.2rem 0.85rem rgba(45, 40, 30, 0.12);
+  box-shadow: 0 0.2rem 0.85rem var(--shadow-strong);
   text-decoration: none;
 }
 
@@ -562,7 +634,7 @@ main {
   z-index: 2;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--badge-bg);
   color: var(--muted);
   font-size: 0.75rem;
   font-weight: 700;
@@ -573,7 +645,7 @@ main {
   place-items: center;
   height: 100%;
   padding: 1.75rem 0.65rem 0.85rem;
-  color: #2a2a24;
+  color: var(--card-ink);
   font-family: "Local Scheherazade", "Scheherazade New", serif;
   font-size: 1rem;
   line-height: 1.4;
@@ -587,7 +659,7 @@ main {
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: rgba(20, 18, 14, 0.55);
+  background: var(--overlay);
 }
 
 .gallery-modal[hidden] {
@@ -616,7 +688,7 @@ main {
   position: fixed;
   inset: 0;
   z-index: 150;
-  background: rgba(20, 18, 14, 0.4);
+  background: var(--drawer-overlay);
 }
 
 .drawer-backdrop[hidden],
@@ -634,7 +706,7 @@ main {
   overflow: auto;
   padding: 1rem 0 2rem;
   background: var(--paper);
-  box-shadow: -0.25rem 0 1.5rem rgba(20, 18, 14, 0.15);
+  box-shadow: -0.25rem 0 1.5rem var(--shadow-strong);
 }
 
 .drawer-header {
@@ -679,7 +751,7 @@ main {
   padding: 1rem;
   border: 2px dashed var(--border);
   border-radius: 0.5rem;
-  background: white;
+  background: var(--surface);
 }
 
 .wireframe-mock {
@@ -692,7 +764,7 @@ main {
   margin-bottom: 0.75rem;
   padding: 0.2rem 0.5rem;
   border-radius: 0.25rem;
-  background: color-mix(in srgb, var(--link) 10%, white);
+  background: color-mix(in srgb, var(--link) 10%, var(--surface));
   color: var(--link);
   font-size: 0.8rem;
   font-weight: 700;
@@ -711,7 +783,7 @@ main {
   padding: 0.75rem;
   border: 1px solid var(--border);
   border-radius: 0.35rem;
-  background: color-mix(in srgb, var(--paper) 50%, white);
+  background: color-mix(in srgb, var(--paper) 50%, var(--surface));
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -726,7 +798,15 @@ main {
   aspect-ratio: 3 / 4;
   border: 1px solid var(--border);
   border-radius: 0.3rem;
-  background: #fdf8ee;
+  background: var(--card-bg, #fdf8ee);
+}
+
+/* Keep botanical card hues, but dim them so they do not glare on a dark page. */
+[data-theme="dark"] .hadith-card,
+[data-theme="dark"] .study-card,
+[data-theme="dark"] .gallery-tile,
+[data-theme="dark"] .wireframe-tile {
+  background: color-mix(in srgb, var(--card-bg, #fdf8ee) 28%, #161410);
 }
 
 .site-footer {
@@ -892,7 +972,8 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .study-card {
+  .study-card,
+  .card-play-btn {
     transition: none;
   }
 }

@@ -4,6 +4,94 @@ const SITE = {
   translit: "Zād al-Ṭalibīn"
 };
 
+/* Remember the visitor's light/dark choice across visits. */
+const THEME_STORAGE_KEY = "zad-theme";
+
+function storedTheme() {
+  try {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "dark" || stored === "light") return stored;
+  } catch (error) {
+    // Private browsing can block localStorage; fall back to the OS setting.
+  }
+  return null;
+}
+
+function currentTheme() {
+  return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+}
+
+function applyTheme(theme, persist) {
+  const next = theme === "dark" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  document.documentElement.style.colorScheme = next;
+  if (persist) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch (error) {
+      // Ignore storage errors so the toggle still works for this visit.
+    }
+  }
+  syncThemeToggle();
+}
+
+function toggleTheme() {
+  applyTheme(currentTheme() === "dark" ? "light" : "dark", true);
+}
+
+function moonIconSvg() {
+  return `
+    <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M16.2 13.4A7 7 0 0 1 10.6 4.8 7.3 7.3 0 1 0 19.2 16a7 7 0 0 1-3 0z"/>
+    </svg>
+  `;
+}
+
+function sunIconSvg() {
+  return `
+    <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="4" fill="currentColor"/>
+      <path fill="currentColor" d="M11.15 2.4h1.7v2.6h-1.7zm0 16.6h1.7v2.6h-1.7zM2.4 11.15h2.6v1.7H2.4zm16.6 0h2.6v1.7h-2.6zM5.2 4.4l1.84 1.84-1.2 1.2L4 5.6zm11.76 11.76 1.84 1.84-1.2 1.2-1.84-1.84zM5.6 18.8l1.2-1.2 1.84 1.84-1.2 1.2zm11.76-11.76 1.2-1.2L20 7.68l-1.2 1.2z"/>
+    </svg>
+  `;
+}
+
+function themeToggleMarkup() {
+  const isDark = currentTheme() === "dark";
+  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+
+  return `
+    <button
+      type="button"
+      class="theme-toggle"
+      data-action="toggle-theme"
+      aria-pressed="${isDark ? "true" : "false"}"
+      aria-label="${label}"
+      title="${label}"
+    >
+      ${isDark ? sunIconSvg() : moonIconSvg()}
+    </button>
+  `;
+}
+
+function syncThemeToggle() {
+  document.querySelectorAll(".theme-toggle").forEach((button) => {
+    const isDark = currentTheme() === "dark";
+    const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+    button.setAttribute("aria-pressed", isDark ? "true" : "false");
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    button.innerHTML = isDark ? sunIconSvg() : moonIconSvg();
+  });
+}
+
+const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+themeMedia.addEventListener("change", (event) => {
+  // Only follow the OS when the visitor has not picked a theme themselves.
+  if (storedTheme()) return;
+  applyTheme(event.matches ? "dark" : "light", false);
+});
+
 const themeAssets = [
   { id: "cream", bg: "#fdf8ee", accent: "#c9a05a" },
   { id: "mint", bg: "#f7f7f0", accent: "#8ea866" },
@@ -212,13 +300,16 @@ function renderSiteHeader(active) {
   return `
     <header class="site-header">
       <p class="site-title site-title--ar"><a href="#/" lang="ar" dir="rtl">${SITE.ar}</a></p>
-      <ul class="site-nav">
-        ${navLink("#/", "Home", active === "home")}
-        ${navLink("#collection", "The Collection", active === "collection")}
-        ${navLink("#study", "Study", active === "study")}
-        ${navLink("#split", "Split View", active === "split")}
-        ${navLink("#gallery", "Gallery", active === "gallery")}
-      </ul>
+      <div class="site-header__tools">
+        <ul class="site-nav">
+          ${navLink("#/", "Home", active === "home")}
+          ${navLink("#collection", "The Collection", active === "collection")}
+          ${navLink("#study", "Study", active === "study")}
+          ${navLink("#split", "Split View", active === "split")}
+          ${navLink("#gallery", "Gallery", active === "gallery")}
+        </ul>
+        ${themeToggleMarkup()}
+      </div>
     </header>
   `;
 }
@@ -861,6 +952,11 @@ function onBodyClick(event) {
 
   const action = target.dataset.action;
 
+  if (action === "toggle-theme") {
+    toggleTheme();
+    return;
+  }
+
   if (action === "flip-card") {
     studyState.flipped = !studyState.flipped;
     render();
@@ -989,6 +1085,10 @@ function onStudyKeydown(event) {
 if (speechState.supported) {
   refreshSpeechVoices();
   window.speechSynthesis.addEventListener("voiceschanged", refreshSpeechVoices);
+}
+
+if (!document.documentElement.getAttribute("data-theme")) {
+  applyTheme(storedTheme() || (themeMedia.matches ? "dark" : "light"), false);
 }
 
 window.addEventListener("hashchange", () => {
