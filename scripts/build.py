@@ -217,8 +217,8 @@ def main() -> None:
     themes = load_themes()
     OUT.mkdir(exist_ok=True)
 
-    html_path = OUT / "hadith-cards-print.html"
-    pdf_path = OUT / "hadith-cards-print.pdf"
+    html_path = OUT / "zadul-talibeen-print.html"
+    pdf_path = OUT / "zadul-talibeen-print.pdf"
     html_path.write_text(build_html(hadiths, themes), encoding="utf-8")
     html_to_pdf(html_path, pdf_path)
     print(f"Wrote {pdf_path} ({math.ceil(len(hadiths) / CARDS_PER_PAGE)} pages, {len(hadiths)} cards)")
